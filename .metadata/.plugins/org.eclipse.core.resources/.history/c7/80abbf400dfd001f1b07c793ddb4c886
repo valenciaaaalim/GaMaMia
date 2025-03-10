@@ -1,0 +1,95 @@
+/**
+* Name: rat4
+* Based on the internal empty template. 
+* Author: valencia
+* Tags: 
+*/
+
+
+model rat4
+
+/* Insert your model definition here */
+
+global {
+    int num_rats <- 50;
+    
+    init {
+        create Rat number: num_rats{
+        	position <- {rnd(100), rnd(100), (rnd(1) < 0.5 ? 0 : 10)};
+        }
+        create Staircase;
+    }
+}
+
+species Rat skills:[moving]{
+    point position;
+    int climb_range <- 5;
+    Staircase target;
+
+    reflex moving {
+    	do wander;
+    	}
+    	
+    reflex search_target when: target = nil{
+    	ask Staircase at_distance(climb_range){
+    		myself.target <- self;
+    	}
+    }
+    	
+   	reflex change_level when: target != nil{
+    	ask Staircase at_distance(climb_range){
+    		if (myself.position.z = 10){
+    			myself.position <- myself.position - {0,0,10} ;
+    		}
+    		else if (myself.position.z = 0){
+    			myself.position <- myself.position + {0,0,10} ;
+    		}
+    		
+    		
+    	}
+    	
+    }
+    
+    aspect base {
+        draw sphere(1) color: #gray;
+    }
+    
+}
+    	
+
+/* */
+        //if (distance_to (one_of (Staircase)) < 5 and rnd(1) < 0.2) { 
+            //move <- (position.z = 0 ? 10 : -10); // Move up or down via stairs
+        
+        
+        //position <- position + move_dir;
+    //}
+
+//    init {
+//        position <- {rnd(100), rnd(100), (rnd(1) < 0.5 ? 0 : 10)}; // Start randomly on floor 0 or 10
+//    }
+//    
+		
+
+
+species Staircase {
+    point position <- {50, 50, 5}; // Staircase in middle of building
+    
+    aspect base {
+        draw square(5) color: #blue;
+    }
+}
+
+experiment simulate type: gui {
+	output {
+        display main_display type: opengl {
+        	species Rat aspect: base;
+            species Staircase aspect: base;
+        }
+        
+    }
+    
+}
+
+
+

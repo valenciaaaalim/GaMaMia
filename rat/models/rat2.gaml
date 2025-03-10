@@ -1,0 +1,403 @@
+/**
+* Name: rat2
+* Based on the internal empty template. 
+* Author: valencia
+* Tags: 
+*/
+
+
+model rat2
+
+/* Insert your model definition here */
+
+/**
+ * Simple Rat Infection Model with Thin Walls
+ * Focuses on visualizing rats moving between floors and gradual infection spread
+ */
+
+global {
+    // Environment parameters
+    int nb_rats <- 30;
+    float infection_distance <- 1.5;
+    float infection_rate <- 0.05;  // Very low infection rate for gradual spread
+    float floor_height <- 10.0;
+    int nb_floors <- 3;
+    
+    // Building dimensions
+    int building_width <- 40;
+    int building_length <- 40;
+    
+    // Room parameters - just a few rooms to keep it simple
+    int nb_rooms_per_floor <- 4;  // 2x2 grid of rooms
+    
+    // Lists to store building elements
+    list<Room> all_rooms;
+    list<Stairway> all_stairs;
+    
+    init {
+        // Create rooms on each floor
+        loop floor from: 0 to: nb_floors - 1 {
+            float floor_z <- floor * floor_height;
+            int room_width <- building_width div 2;
+            int room_length <- building_length div 2;
+            
+            // Create a 2x2 grid of rooms
+            loop i from: 0 to: 1 {
+                loop j from: 0 to: 1 {
+                    create Room {
+                        floor_level <- floor;
+                        room_id <- length(all_rooms);
+                        x_min <- i * room_width;
+                        x_max <- (i+1) * room_width;
+                        y_min <- j * room_length;
+                        y_max <- (j+1) * room_length;
+                        location <- {(x_min+x_max)/2, (y_min+y_max)/2, floor_z};
+                        
+                        // Create doorways between adjacent rooms (simple)
+                        has_door_right <- (i < 1);
+                        has_door_down <- (j < 1);
+                        
+                        add self to: all_rooms;
+                    }
+                }
+            }
+            
+            // Create stairs connecting floors (except the top)
+            if (floor < nb_floors - 1) {
+                create Stairway {
+                    start_floor <- floor;
+                    end_floor <- floor + 1;
+                    location <- {building_width - 5, 5, floor_z + floor_height/2};
+                    
+                    add self to: all_stairs;
+                }
+            }
+        }
+        
+        // Create rats - with only one initially infected
+        create Rat number: nb_rats {
+            Room initial_room <- one_of(all_rooms);
+            current_room <- initial_room;
+            location <- {rnd(current_room.x_min + 2, current_room.x_max - 2), 
+                        rnd(current_room.y_min + 2, current_room.y_max - 2), 
+                        current_room.location.z};
+            is_infected <- false;
+        }
+        
+        // Just one initially infected rat
+        Rat initial_carrier <- one_of(Rat);
+        initial_carrier.is_infected <- true;
+        initial_carrier.color <- #red;
+    }
+    
+    // Track statistics
+    reflex update_statistics {
+        int total_infected <- Rat count (each.is_infected);
+        write "Day " + cycle + ": " + total_infected + " infected rats out of " + nb_rats;
+    }
+}
+
+// Room species - simple rectangular spaces with thin walls
+species Room {
+    int floor_level;
+    int room_id;
+    float x_min;
+    float x_max;
+    float y_min; 
+    float y_max;
+    
+    // Doorways - simple version
+    bool has_door_right <- false;
+    bool has_door_down <- false;
+    
+    // Get neighboring rooms
+    list<Room> get_neighbors {
+        list<Room> neighbors <- [];
+        
+        // Check rooms on same floor
+        ask Room where (each.floor_level = floor_level) {
+            // Right neighbor
+            if (self.has_door_right and self.x_max = myself.x_min and 
+                !(self.y_max < myself.y_min or self.y_min > myself.y_max)) {
+                add self to: neighbors;
+            }
+            // Left neighbor
+            if (myself.has_door_right and myself.x_max = self.x_min and 
+                !(self.y_max < myself.y_min or self.y_min > myself.y_max)) {
+                add self to: neighbors;
+            }
+            // Down neighbor
+            if (self.has_door_down and self.y_max = myself.y_min and 
+                !(self.x_max < myself.x_min or self.x_min > myself.x_max)) {
+                add self to: neighbors;
+            }
+            // Up neighbor
+            if (myself.has_door_down and myself.y_max = self.y_min and 
+                !(self.x_max < myself.x_min or self.x_min > myself.x_max)) {
+                add self to: neighbors;
+            }
+        }
+        
+        // Add stairway connections
+        ask Stairway {
+            if (self.start_floor = myself.floor_level and 
+                self.location.x between [myself.x_min, myself.x_max] and
+                self.location.y between [myself.y_min, myself.y_max]) {
+                // Find nearest room on the upper floor
+                Room target_room <- Room first_with (
+                    each.floor_level = self.end_floor and
+                    self.location.x between [each.x_min, each.x_max] and
+                    self.location.y between [each.y_min, each.y_max]
+                );
+                if (target_room != nil) {
+                    add target_room to: neighbors;
+                }
+            }
+            
+            if (self.end_floor = myself.floor_level and 
+                self.location.x between [myself.x_min, myself.x_max] and
+                self.location.y between [myself.y_min, myself.y_max]) {
+                // Find nearest room on the lower floor
+                Room target_room <- Room first_with (
+                    each.floor_level = self.start_floor and
+                    self.location.x between [each.x_min, each.x_max] and
+                    self.location.y between [each.y_min, each.y_max]
+                );
+                if (target_room != nil) {
+                    add target_room to: neighbors;
+                }
+            }
+        }
+        
+        return neighbors;
+    }
+    
+    aspect default {
+        // Draw room floor
+        draw rectangle({x_max - x_min, y_max - y_min}) 
+             at: {(x_min + x_max)/2, (y_min + y_max)/2, location.z - 0.1} 
+             color: rgb(240, 240, 240);
+        
+        // Draw walls (thin lines)
+        rgb wall_color <- rgb(100, 100, 100);
+        float wall_height <- floor_height * 0.9;
+        
+        // Draw walls (omitting doors)
+        // Top wall
+        draw line([{x_min, y_min, location.z}, {x_max, y_min, location.z}]) color: wall_color width: 0.5;
+        
+        // Bottom wall (with possible door)
+        if (!has_door_down) {
+            draw line([{x_min, y_max, location.z}, {x_max, y_max, location.z}]) color: wall_color width: 0.5;
+        } else {
+            // Draw wall with a gap for door
+            float door_width <- (x_max - x_min) / 5; // door size
+            float door_center <- (x_min + x_max) / 2;
+            draw line([{x_min, y_max, location.z}, {door_center - door_width/2, y_max, location.z}]) color: wall_color width: 0.5;
+            draw line([{door_center + door_width/2, y_max, location.z}, {x_max, y_max, location.z}]) color: wall_color width: 0.5;
+        }
+        
+        // Left wall
+        draw line([{x_min, y_min, location.z}, {x_min, y_max, location.z}]) color: wall_color width: 0.5;
+        
+        // Right wall (with possible door)
+        if (!has_door_right) {
+            draw line([{x_max, y_min, location.z}, {x_max, y_max, location.z}]) color: wall_color width: 0.5;
+        } else {
+            // Draw wall with a gap for door
+            float door_height <- (y_max - y_min) / 5; // door size
+            float door_center <- (y_min + y_max) / 2;
+            draw line([{x_max, y_min, location.z}, {x_max, door_center - door_height/2, location.z}]) color: wall_color width: 0.5;
+            draw line([{x_max, door_center + door_height/2, location.z}, {x_max, y_max, location.z}]) color: wall_color width: 0.5;
+        }
+        
+        // Room label - simple
+        draw "R" + room_id at: {(x_min+x_max)/2, (y_min+y_max)/2, location.z + 0.5} color: #black font: font("SansSerif", 12, #bold);
+    }
+}
+
+// Stairway between floors
+species Stairway {
+    int start_floor;
+    int end_floor;
+    
+    aspect default {
+        // Draw a simple staircase
+        rgb stair_color <- rgb(150, 150, 150);
+        
+        // Calculate endpoints
+        point start_point <- {location.x, location.y, start_floor * floor_height};
+        point end_point <- {location.x, location.y, end_floor * floor_height};
+        
+        // Draw stairs as a line with a label
+        draw line([start_point, end_point]) color: stair_color width: 1.5;
+        draw sphere(1.0) at: start_point color: stair_color;
+        draw sphere(1.0) at: end_point color: stair_color;
+        draw "Stairs " + start_floor + "→" + end_floor at: location color: #black font: font("SansSerif", 9, #bold);
+    }
+}
+
+// Rat species - moving between rooms and floors
+species Rat skills: [moving] {
+    Room current_room;
+    bool is_infected <- false;
+    rgb color <- rgb(150, 150, 150);  // Default gray
+    float size <- 0.8;
+    
+    // Movement parameters
+    float speed <- 0.5;
+    float room_change_probability <- 0.01;  // Low probability for slow movement
+    
+    // For stair movement visualization
+    bool is_using_stairs <- false;
+    point stair_target;
+    float stair_progress <- 0.0;
+    
+    reflex move {
+        if (is_using_stairs) {
+            // Continue the stair movement
+            stair_progress <- stair_progress + 0.05;
+            if (stair_progress >= 1.0) {
+                // Completed stair movement
+                location <- stair_target;
+                is_using_stairs <- false;
+                // Find the room at this location
+                /* 
+                current_room <- Room first_with (
+                    location.z between [each.location.z - 0.5, each.location.z + 0.5] and
+                    location.x between [each.x_min, each.x_max] and 
+                    location.y between [each.y_min, each.y_max]
+                );
+                */
+            } else {
+                // Interpolate position on stairs
+                point start_pos <- copy(location);
+                location <- start_pos + (stair_target - start_pos) * stair_progress;
+            }
+        } else {
+            // Random movement within current room
+            if (current_room != nil) {
+                location <- {
+                    min([max([location.x + rnd(-1.0, 1.0), current_room.x_min + 1]), current_room.x_max - 1]), 
+                    min([max([location.y + rnd(-1.0, 1.0), current_room.y_min + 1]), current_room.y_max - 1]), 
+                    current_room.location.z
+                };
+                
+                // Occasionally change rooms
+                if (flip(room_change_probability)) {
+                    list<Room> neighbors <- current_room.get_neighbors();
+                    if (!empty(neighbors)) {
+                        Room target_room <- one_of(neighbors);
+                        
+                        // Check if this is a stair movement
+                        if (target_room.floor_level != current_room.floor_level) {
+                            // Start stair movement
+                            is_using_stairs <- true;
+                            stair_progress <- 0.0;
+                            stair_target <- {
+                                rnd(target_room.x_min + 2, target_room.x_max - 2),
+                                rnd(target_room.y_min + 2, target_room.y_max - 2),
+                                target_room.location.z
+                            };
+                        } else {
+                            // Direct room change on same floor
+                            current_room <- target_room;
+                            location <- {
+                                rnd(current_room.x_min + 2, current_room.x_max - 2),
+                                rnd(current_room.y_min + 2, current_room.y_max - 2),
+                                current_room.location.z
+                            };
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    reflex infect when: is_infected {
+        // Infect other rats that are nearby
+        ask Rat at_distance infection_distance {
+        	if (self.is_infected){
+        		myself.is_infected <- true;
+        		
+        	}
+        	else if (myself.is_infected) {
+        		self.is_infected <-true;
+        	}
+            // Only infect if in same room or both on stairs
+            /* 
+            if (!is_infected and 
+                ((self.current_room = myself.current_room and !is_using_stairs and !myself.is_using_stairs) || 
+                 (is_using_stairs and myself.is_using_stairs))) {
+                if (flip(infection_rate)) {
+                    is_infected <- true;
+                    color <- #red;
+                    
+                    
+                }
+            }*/
+        }
+    }
+    
+    aspect default {
+        // Draw the rat as a colored sphere
+        draw sphere(size) color: color;
+        
+        // Add a small label to identify infected rats
+        if (is_infected) {
+            draw "+" at: {location.x, location.y, location.z + 1} color: #red font: font("SansSerif", 8, #bold);
+        }
+    }
+}
+
+experiment RatSimulation type: gui {
+    parameter "Number of Rats:" var: nb_rats min: 5 max: 50 category: "Simulation";
+    parameter "Infection Rate:" var: infection_rate min: 0.01 max: 0.2 step: 0.01 category: "Disease";
+    parameter "Room Change Probability:" var: room_change_probability min: 0.005 max: 0.05 step: 0.005 category: "Movement";
+    
+    output {
+        display main_display type: opengl {
+            // Building structure
+            species Room;
+            species Stairway;
+            
+            // Rats
+            species Rat;
+            
+            // Information overlay
+            graphics "info" {
+                draw "Infected: " + (Rat count (each.is_infected)) + "/" + nb_rats at: {5, 5, (nb_floors * floor_height) + 2} 
+                     color: #red font: font("SansSerif", 14, #bold);
+                     
+                // Show floor labels
+                loop i from: 0 to: nb_floors - 1 {
+                    draw "Floor " + i at: {2, building_length + 2, i * floor_height + 2} color: #blue font: font("SansSerif", 12, #bold);
+                }
+            }
+            
+            // Set initial camera position for better view
+            camera 'default' location: {building_width * 1.5, building_length * 1.5, building_width} 
+                   target: {building_width/2, building_length/2, floor_height};
+        }
+        
+        // Simple chart tracking infection spread
+        display "Infection_Chart" refresh: every(10 #cycles) {
+            chart "Rat Infection Over Time" type: series {
+                data "Infected" value: Rat count (each.is_infected) color: #red;
+                data "Healthy" value: Rat count (!each.is_infected) color: #green;
+            }
+        }
+        
+        // Monitor infection by floor
+        display "Infection_By_Floor" refresh: every(10 #cycles) {
+            chart "Infection By Floor" type: pie {
+                loop i from: 0 to: nb_floors - 1 {
+                    data "Floor " + i value: Rat count (each.is_infected and 
+                                                       each.current_room != nil and 
+                                                       each.current_room.floor_level = i) 
+                         color: rgb(255, 100 + (i * 50), 100);
+                }
+            }
+        }
+    }
+}

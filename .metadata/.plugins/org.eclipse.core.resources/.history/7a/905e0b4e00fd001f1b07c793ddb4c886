@@ -1,0 +1,59 @@
+/**
+* Name: rat4
+* Based on the internal empty template. 
+* Author: valencia
+* Tags: 
+*/
+
+
+model rat4
+
+/* Insert your model definition here */
+
+global {
+    int num_rats <- 50;
+    
+    init {
+        create Rat number: num_rats;
+        create Staircase;
+    }
+}
+
+species Rat {
+    point position;
+
+    aspect base {
+        draw sphere(1) color: #gray;
+    }
+
+    reflex move_randomly {
+
+        if (distance_to (one_of (Staircase)) < 5 and rnd(1) < 0.2) { 
+            move <- (position.z = 0 ? 10 : -10); // Move up or down via stairs
+        }
+        
+        position <- position + move_dir;
+    }
+
+    init {
+        position <- {rnd(100), rnd(100), (rnd(1) < 0.5 ? 0 : 10)}; // Start randomly on floor 0 or 10
+    }
+}
+
+species Staircase {
+    point position <- {50, 50, 5}; // Staircase in middle of building
+    
+    aspect base {
+        draw box width: 5 height: 5 depth: 10 color: #brown;
+    }
+}
+
+experiment simulate type: gui {
+    output {
+        display "3D Building" background: #black {
+            species Rat aspect: base;
+            species Staircase aspect: base;
+        }
+    }
+}
+

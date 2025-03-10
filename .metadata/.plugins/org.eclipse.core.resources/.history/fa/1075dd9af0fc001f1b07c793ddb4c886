@@ -1,0 +1,143 @@
+/**
+* Name: NewModel
+* Based on the internal empty template. 
+* Author: valencia
+* Tags: 
+*/
+
+
+model NewModel
+
+/* Insert your model definition here */
+
+/**
+ * Simple 3D Disease Spread Model
+ * Two floors with humans represented as spheres
+ * Some humans start infected and spread disease through proximity
+ */
+
+global {
+    // Environment parameters
+    int nb_people <- 50;  // Number of people
+    float infection_distance <- 2.0;  // Distance at which infection can occur
+    float infection_rate <- 0.3;  // Probability of infection when in range
+    float recovery_rate <- 0.01;  // Probability of recovery each step
+    float floor_height <- 10.0;  // Height between floors
+    
+    // Environment bounds
+    int environment_width <- 50;
+    int environment_height <- 50;
+    
+    init {
+        // Create people on two floors
+        create Person number: nb_people/2 {
+            location <- {rnd(environment_width), rnd(environment_height), 0.0};
+            floor <- 0;
+            is_infected <- flip(0.1);  // 10% initially infected
+        }
+        
+        create Person number: nb_people/2 {
+            location <- {rnd(environment_width), rnd(environment_height), floor_height};
+            floor <- 1;
+            is_infected <- flip(0.1);  // 10% initially infected
+        }
+    }
+    
+    // Overall statistics
+    reflex update_statistics {
+        int total_infected <- Person count (each.is_infected);
+        write "Day " + cycle + ": " + total_infected + " infected out of " + nb_people + " people";
+    }
+}
+
+species Person skills: [moving] {
+    bool is_infected <- false;
+    int floor;
+    rgb color <- rgb(50, 150, 50);  // Green for healthy
+    float size <- 1.0;
+    float speed <- 1.0;
+    
+    reflex move {
+        // Random movement, staying on the same floor
+        float current_z <- location.z;
+        location <- location + {rnd(-1.0, 1.0), rnd(-1.0, 1.0), 0};
+        
+        // Ensure we stay within bounds
+        location <- {min([max([location.x, 0]), environment_width]), 
+                     min([max([location.y, 0]), environment_height]), 
+                     current_z};
+    }
+    
+    reflex infect when: is_infected {
+        // Try to infect nearby people on the same floor
+        ask Person at_distance infection_distance {
+            if (!is_infected and self.floor = myself.floor) {
+                if (flip(infection_rate)) {
+                    is_infected <- true;
+                }
+            }
+        }
+    }
+    
+    reflex recover when: is_infected {
+        // Chance to recover each tick
+        if (flip(recovery_rate)) {
+            is_infected <- false;
+        }
+    }
+    
+    aspect default {
+        // Change color based on infection status
+        color <- is_infected ? rgb(200, 0, 0) : rgb(50, 150, 50);
+        
+        // Draw as a sphere
+        draw sphere(size) color: color;
+    }
+}
+
+experiment DiseaseSpread3DVisualization type: gui {
+    output {
+        display main_display type: opengl {
+            // Add a floor for each level
+            graphics "floor0" {
+                draw box({environment_width, environment_height, 0.2}) at: {environment_width/2, environment_height/2, -0.1} color: rgb(200, 200, 200, 100);
+            }
+            
+            graphics "floor1" {
+                draw box({environment_width, environment_height, 0.2}) at: {environment_width/2, environment_height/2, floor_height-0.1} color: rgb(200, 200, 200, 100);
+            }
+            
+            // Add walls to visualize the building
+            graphics "walls" {
+                // Ground floor walls
+                draw line([{0,0,0}, {environment_width,0,0}]) color: #black width: 2.0;
+                draw line([{0,0,0}, {0,environment_height,0}]) color: #black width: 2.0;
+                draw line([{environment_width,0,0}, {environment_width,environment_height,0}]) color: #black width: 2.0;
+                draw line([{0,environment_height,0}, {environment_width,environment_height,0}]) color: #black width: 2.0;
+                
+                // Upper floor walls
+                draw line([{0,0,floor_height}, {environment_width,0,floor_height}]) color: #black width: 2.0;
+                draw line([{0,0,floor_height}, {0,environment_height,floor_height}]) color: #black width: 2.0;
+                draw line([{environment_width,0,floor_height}, {environment_width,environment_height,floor_height}]) color: #black width: 2.0;
+                draw line([{0,environment_height,floor_height}, {environment_width,environment_height,floor_height}]) color: #black width: 2.0;
+            }
+            
+            // Display the people
+            species Person;
+            
+            // Add information about the simulation
+            graphics "info" {
+                draw "Infected: " + (Person count (each.is_infected)) at: {5, 5, floor_height + 5} color: #red font: font("SansSerif", 16, #bold);
+                draw "Healthy: " + (Person count (!each.is_infected)) at: {5, 8, floor_height + 5} color: #green font: font("SansSerif", 16, #bold);
+            }
+        }
+        
+        // Add charts to track the infection
+        display "Disease_Chart" {
+            chart "Disease Spread" type: series {
+                data "Infected" value: Person count (each.is_infected) color: #red;
+                data "Healthy" value: Person count (!each.is_infected) color: #green;
+            }
+        }
+    }
+}
