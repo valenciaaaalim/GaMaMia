@@ -1,0 +1,198 @@
+/**
+* Name: PedestrianToBin
+* Based on the internal empty template. 
+* Author: valencia
+* Tags: 
+*/
+
+
+model PedestrianToBin
+
+/* Insert your model definition here */
+
+/**
+* Name: PedestrianToBin
+* Based on pedestrian_complex_environment and TenMarch models
+* Author: Claude
+* Tags: pedestrian, obstacle avoidance, pathfinding
+*/
+
+
+
+global {
+	file wall_shapefile <- file("../includes/walls.shp");
+	
+	shape_file free_spaces_shape_file <- shape_file("../includes/free spaces.shp");
+	shape_file open_area_shape_file <- shape_file("../includes/open area.shp");
+	shape_file pedestrian_paths_shape_file <- shape_file("../includes/pedestrian paths.shp");
+	
+    // Parameters for pedestrian movement
+    bool display_force <- false parameter: true;
+    bool display_target <- true parameter: true;
+    bool display_circle_min_dist <- true parameter: true;
+    
+    float P_shoulder_length <- 0.45 parameter: true;
+    float P_proba_detour <- 0.5 parameter: true;
+    bool P_avoid_other <- true parameter: true;
+    float P_obstacle_consideration_distance <- 3.0 parameter: true;
+    float P_pedestrian_consideration_distance <- 3.0 parameter: true;
+    float P_tolerance_target <- 0.1 parameter: true;
+    bool P_use_geometry_target <- true parameter: true;
+    
+    float step <- 0.1;
+    
+//    // Number of obstacles
+//    int nb_obstacles <- 20 parameter: true;
+   	geometry open_area ;
+    
+    // Space where agents can move
+    geometry free_space <- copy(shape);
+    geometry shape <- envelope(wall_shapefile);
+    
+    // Graph for navigation
+    graph pedestrian_network;
+    
+    
+    init {
+    	open_area <- first(open_area_shape_file.contents);
+    	free_space <- open_area;
+    	
+        // Create obstacles
+        create obstacle from: wall_shapefile;
+        
+        // Create pedestrian paths 
+       create pedestrian_path from: pedestrian_paths_shape_file {
+			list<geometry> fs <- free_spaces_shape_file overlapping self;
+			free_space <- fs first_with (each covers shape); //for all free spaces intersecting pedestrian path, 
+			//add to list of geometry and call that list 'fs'. find the first in that list that 
+			//COMPLETLY avoids wall (within envelope(wall)), make it free space
+		}
+		
+
+		pedestrian_network <- as_edge_graph(pedestrian_path);
+		
+		ask pedestrian_path {
+			do build_intersection_areas pedestrian_graph: pedestrian_network;
+		}
+	
+        // Create a bin at a random location
+        create bin {
+            location <- any_location_in(free_space);
+        }
+        
+        // Create a person at a random location
+        create people {
+            location <- any_location_in(one_of(open_area));
+            has_trash <- true;
+            
+            // Set pedestrian parameters
+            obstacle_consideration_distance <- P_obstacle_consideration_distance;
+            pedestrian_consideration_distance <- P_pedestrian_consideration_distance;
+            shoulder_length <- P_shoulder_length;
+            avoid_other <- P_avoid_other;
+            proba_detour <- P_proba_detour;
+            
+            use_geometry_waypoint <- P_use_geometry_target;
+            tolerance_waypoint <- P_tolerance_target;
+            pedestrian_species <- [people];
+            obstacle_species <- [obstacle];
+            
+        }
+    }
+    
+    // Pause simulation when all people have reached their targets
+    reflex check_end when: empty(people where each.has_trash) {
+        write "All people have disposed of their trash!";
+        do pause;
+    }
+}
+
+// Species for pedestrian paths
+species pedestrian_path skills: [pedestrian_road] {
+    aspect default {
+        draw shape color: #gray;
+    }
+}
+
+// Species for obstacles
+species obstacle {
+	aspect default {
+		draw shape + (P_shoulder_length/2.0) color: #gray border: #black;
+	}
+}
+
+// Species for trash bins
+species bin {
+    aspect default {
+        draw square(3) color: #blue depth: 3;
+    }
+}
+
+// Species for people with pedestrian skill
+species people skills: [pedestrian] {
+    bool has_trash <- true;
+    rgb color <- #red;
+    float speed <- 5.0 #km/#h;
+    bin target;
+    
+    // Find target bin if none is set
+    reflex search_target when: target = nil {
+        ask bin closest_to self {
+            myself.target <- self;
+        }
+    }
+    
+    // Move towards bin using pedestrian navigation
+    reflex move_to_bin when: has_trash and target != nil {
+//        if (final_waypoint = nil) {
+            do goto (target: target, on: pedestrian_network);
+//        }
+//        do walk;
+        
+        // Check if reached the bin
+        if location distance_to target < 1.0 {
+            has_trash <- false;
+            write "Person " + name + " has reached the bin!";
+        }
+    }
+    
+    aspect default {
+        if display_circle_min_dist and minimal_distance > 0 {
+            draw circle(minimal_distance).contour color: color;
+        }
+        
+        draw triangle(2) color: has_trash ? #red : #green rotate: heading + 90.0;
+        
+        if (current_path != nil) {
+			draw current_path.shape color: #red;
+		}
+        
+        if display_target and current_waypoint != nil {
+            draw line([location, current_waypoint]) color: color;
+        }
+        
+        if display_force {
+            loop op over: forces.keys {
+                if (species(agent(op)) = obstacle) {
+                    draw line([location, location + point(forces[op])]) color: #red end_arrow: 0.1;
+                } else if ((agent(op)) = self) {
+                    draw line([location, location + point(forces[op])]) color: #blue end_arrow: 0.1;
+                } else {
+                    draw line([location, location + point(forces[op])]) color: #green end_arrow: 0.1;
+                }
+            }
+        }
+    }
+}
+
+experiment pedestrian_navigation type: gui {
+    float minimum_cycle_duration <- 0.05;
+    output {
+        display map type: 3d {
+            species obstacle;
+            species pedestrian_path transparency: 0.5;
+            species bin aspect: default;
+            species people aspect: default;
+        }
+    }
+}

@@ -1,0 +1,398 @@
+/**
+* Name: CVRP
+* Based on the internal empty template. 
+* Author: valencia
+* Tags: 
+*/
+
+
+model CVRP
+
+/* Insert your model definition here */
+
+
+
+
+global {
+    // Shapefile inputs
+    file wall_shapefile <- file("../includes/walls.shp");
+    shape_file free_spaces_shape_file <- shape_file("../includes/free spaces.shp");
+    shape_file open_area_shape_file <- shape_file("../includes/open area.shp");
+    shape_file pedestrian_paths_shape_file <- shape_file("../includes/pedestrian paths.shp");
+    
+    // Visualization parameters
+    bool display_force <- false parameter: true;
+    bool display_target <- true parameter: true;
+    bool display_circle_min_dist <- true parameter: true;
+    bool display_path <- true parameter: true;
+    
+    // Pedestrian parameters
+    float P_shoulder_length <- 0.45 parameter: true;
+    float P_proba_detour <- 0.5 parameter: true;
+    bool P_avoid_other <- true parameter: true;
+    float P_obstacle_consideration_distance <- 3.0 parameter: true;
+    float P_pedestrian_consideration_distance <- 3.0 parameter: true;
+    float P_tolerance_target <- 0.1 parameter: true;
+    bool P_use_geometry_target <- true parameter: true;
+    
+    // Bin parameters
+    int nb_bins <- 5 parameter: true;
+    float mean_fill_time <- 60.0 parameter: true; // Mean time steps to fill a bin
+    float std_fill_time <- 20.0 parameter: true;  // Standard deviation for fill time
+    int min_filled_bins_to_collect <- 2 parameter: true; // Minimum number of filled bins to trigger collection
+    
+    // Cleaner parameters
+    int cleaner_max_capacity <- 5 parameter: true; // Maximum bins the cleaner can empty
+    
+    // Simulation variables
+    float step <- 0.1;
+    geometry open_area;
+    geometry free_space;
+    geometry shape <- envelope(wall_shapefile);
+    graph pedestrian_network;
+    
+    // Statistics
+    int total_bins_emptied <- 0;
+    float total_distance_traveled <- 0.0;
+    
+    
+    init {
+        // Initialize environment
+        open_area <- first(open_area_shape_file.contents);
+        free_space <- open_area;
+        
+        // Create obstacles from walls shapefile
+        create obstacle from: wall_shapefile;
+        
+        // Create pedestrian paths from shapefile
+        create pedestrian_path from: pedestrian_paths_shape_file {
+            list<geometry> fs <- free_spaces_shape_file overlapping self;
+            free_space <- fs first_with (each covers shape);
+        }
+        
+        // Build navigation network
+        pedestrian_network <- as_edge_graph(pedestrian_path);
+        
+        ask pedestrian_path {
+            do build_intersection_areas pedestrian_graph: pedestrian_network;
+        }
+        
+        // Create bins in random locations
+        create bin number: nb_bins {
+            location <- any_location_in(open_area);
+            // Set random initial fill levels
+            fill_level <- rnd(0.0, 0.8);
+            // Set random time to fill based on normal distribution
+            time_to_fill <- gauss(mean_fill_time, std_fill_time);
+        }
+        
+        // Create a cleaner
+        create cleaner {
+            location <- any_location_in(open_area);
+            
+            // Set pedestrian parameters
+            obstacle_consideration_distance <- P_obstacle_consideration_distance;
+            pedestrian_consideration_distance <- P_pedestrian_consideration_distance;
+            shoulder_length <- P_shoulder_length;
+            avoid_other <- P_avoid_other;
+            proba_detour <- P_proba_detour;
+            
+            use_geometry_waypoint <- P_use_geometry_target;
+            tolerance_waypoint <- P_tolerance_target;
+            pedestrian_species <- [cleaner];
+            obstacle_species <- [obstacle];
+        }
+    }
+    
+    // Check if collection should be triggered
+    reflex check_collection_needed {
+        int filled_bins <- length(bin where (each.is_full));
+        
+        if (filled_bins >= min_filled_bins_to_collect) {
+            ask cleaner where (each.state = "idle") {
+                do start_collection;
+            }
+        }
+    }
+}
+
+// Species for pedestrian paths
+species pedestrian_path skills: [pedestrian_road] {
+    aspect default {
+        draw shape color: #gray;
+    }
+}
+
+// Species for obstacles
+species obstacle {
+    aspect default {
+        draw shape + (P_shoulder_length/2.0) color: #gray border: #black;
+    }
+}
+
+// Species for trash bins
+species bin {
+    float fill_level <- 0.0; // 0.0 to 1.0 representing empty to full
+    float fill_rate <- 0.01; // How fast the bin fills per step
+    float time_to_fill <- 100.0; // Time steps until the bin fills
+    bool is_full <- false;
+    
+    // Bin fills up over time
+    reflex fill_up {
+        if (!is_full) {
+            fill_level <- fill_level + (1.0 / time_to_fill);
+            if (fill_level >= 1.0) {
+                fill_level <- 1.0;
+                is_full <- true;
+            }
+        }
+    }
+    
+    // Reset bin when emptied
+    action empty {
+        fill_level <- 0.0;
+        is_full <- false;
+        // Set new random time to fill
+        time_to_fill <- gauss(mean_fill_time, std_fill_time);
+    }
+    
+    aspect default {
+        // Draw bin with fill level visualization
+        draw square(3) color: #blue depth: 3;
+        
+        // Visualize fill level with a colored indicator
+        draw square(2.5) color: is_full ? #red : #blue;
+        //rgb(255 * fill_level, 255 * (1 - fill_level), 0) depth: 3 * fill_level at: {location.x, location.y, 0.1};
+        
+        // Show fill level as text
+        draw string(int(fill_level * 100)) + "%" color: #black at: {location.x, location.y + 3};
+    }
+}
+
+// Species for the cleaner with pedestrian skill
+species cleaner skills: [pedestrian] {
+    rgb color <- #red;
+    float speed <- 5.0 #km/#h;
+    string state <- "idle"; // idle, collecting, returning
+    list<bin> bins_to_empty <- [];
+    list<bin> planned_route <- [];
+    int bins_capacity <- cleaner_max_capacity;
+    int current_bin_count <- 0;
+    point start_location;
+    float distance_traveled <- 0.0;
+    float current_speed <- 0.0;
+    
+    // Start the collection process
+    action start_collection {
+        if (state = "idle") {
+            write "Starting collection route...";
+            state <- "collecting";
+            start_location <- location;
+            
+            // Get all full bins
+            bins_to_empty <- bin where (each.is_full);
+            
+            // Calculate optimal route through bins
+            do plan_optimal_route;
+            
+            if (!empty(planned_route)) {
+                do goto_next_bin;
+            } else {
+                state <- "idle";
+            }
+        }
+    }
+    
+    // Plan the optimal route for waste collection using a simple greedy approach
+    action plan_optimal_route {
+        planned_route <- [];
+        list<bin> remaining_bins <- copy(bins_to_empty);
+        point current_pos <- location;
+        
+        // Keep adding bins until we reach capacity or run out of bins
+        loop while: (! empty(remaining_bins) and length(planned_route) < bins_capacity) {
+            // Find closest bin from current position
+            bin closest_bin <- nil;
+            float min_dist <- #max_float;
+            
+            loop b over: remaining_bins {
+                float dist <- path_between(pedestrian_network, current_pos, b.location).distance;
+                if (dist < min_dist) {
+                    min_dist <- dist;
+                    closest_bin <- b;
+                }
+            }
+            
+            if (closest_bin != nil) {
+                add closest_bin to: planned_route;
+                remove closest_bin from: remaining_bins;
+                current_pos <- closest_bin.location;
+            }
+        }
+        do break_loop;
+        
+        write "Planned route with " + length(planned_route) + " bins";
+    }
+    
+        action break_loop {
+		int i <- 0;
+		loop while: true {
+			write "" + i + "th iteration!" ;
+			if(flip(0.01)) {
+				break;
+			}
+			i <- i + 1;
+		}
+	}
+    
+    // Go to the next bin in the route
+    action goto_next_bin {
+        if (!empty(planned_route)) {
+            bin next_bin <- first(planned_route);
+            write "Going to next bin at " + next_bin.location;
+            do compute_virtual_path pedestrian_graph: pedestrian_network target: next_bin.location;
+        }
+    }
+    
+    // Move to bins and empty them
+    reflex collect_waste when: state = "collecting" {
+        if (!empty(planned_route)) {
+            // If we have waypoints, follow them
+            if (final_waypoint != nil) {
+                do walk;
+                // Update distance traveled
+                if (current_speed > 0) {
+                    distance_traveled <- distance_traveled + current_speed * step;
+                    total_distance_traveled <- total_distance_traveled + (current_speed * step);
+                }
+            }
+            
+            bin current_target <- first(planned_route);
+            
+            // Check if reached the bin
+            if (location distance_to current_target.location < 1.0) {
+                write "Emptying bin at " + current_target.location;
+                
+                // Empty the bin
+                ask current_target {
+                    do empty;
+                }
+                
+                // Update counters
+                current_bin_count <- current_bin_count + 1;
+                total_bins_emptied <- total_bins_emptied + 1;
+                
+                // Remove bin from route
+                remove current_target from: planned_route;
+                
+                // Check if we're done or need to go to the next bin
+                if (empty(planned_route) or current_bin_count >= bins_capacity) {
+                    write "Route completed or capacity reached, returning to start";
+                    state <- "returning";
+                    do compute_virtual_path pedestrian_graph: pedestrian_network target: start_location;
+                } else {
+                    // Go to next bin
+                    do goto_next_bin;
+                }
+            }
+        } else {
+            // If all bins in the planned route are processed, go back to start
+            state <- "returning";
+            do compute_virtual_path pedestrian_graph: pedestrian_network target: start_location;
+        }
+    }
+    
+    // Return to the starting point after collection
+    reflex return_to_start when: state = "returning" {
+        if (final_waypoint != nil) {
+            do walk;
+            // Update distance traveled
+            if (current_speed > 0) {
+                distance_traveled <- distance_traveled + current_speed * step;
+                total_distance_traveled <- total_distance_traveled + (current_speed * step);
+            }
+        }
+        
+        // Check if reached starting point
+        if (location distance_to start_location < 1.0) {
+            write "Returned to start position after collecting " + current_bin_count + " bins";
+            write "Distance traveled: " + distance_traveled;
+            
+            // Reset variables for next collection
+            state <- "idle";
+            bins_to_empty <- [];
+            planned_route <- [];
+            current_bin_count <- 0;
+            distance_traveled <- 0.0;
+        }
+    }
+    
+    // Calculate the shortest path distance between two points on the network
+    path path_between(graph g, point origin, point destination) {
+        return g path_between(origin, destination);
+    }
+    
+    aspect default {
+        if (display_circle_min_dist and minimal_distance > 0) {
+            draw circle(minimal_distance).contour color: color;
+        }
+        
+        // Change color based on state
+        rgb agent_color <- #gray;
+        if (state = "idle") { agent_color <- #green; }
+        if (state = "collecting") { agent_color <- #red; }
+        if (state = "returning") { agent_color <- #orange; }
+        
+        draw triangle(2) color: agent_color rotate: heading + 90.0;
+        
+        // Show capacity
+        draw string(current_bin_count) + "/" + string(bins_capacity) color: #black at: {location.x, location.y + 3};
+        
+        // Draw current path if available
+        if (display_path and current_path != nil) {
+            draw current_path.shape color: #red;
+        }
+        
+        // Draw line to current waypoint
+        if (display_target and current_waypoint != nil) {
+            draw line([location, current_waypoint]) color: color;
+        }
+        
+        // Draw the planned route
+        if (state = "collecting" and !empty(planned_route)) {
+            point prev_loc <- location;
+            loop bin_on_route over: planned_route {
+                draw line([prev_loc, bin_on_route.location]) color: #purple;
+                prev_loc <- bin_on_route.location;
+            }
+        }
+    }
+}
+
+experiment waste_collection type: gui {
+    parameter "Number of Bins" var: nb_bins min: 3 max: 10;
+    parameter "Mean fill time (steps)" var: mean_fill_time min: 10.0 max: 200.0;
+    parameter "Min filled bins to trigger collection" var: min_filled_bins_to_collect min: 1 max: 10;
+    parameter "Cleaner capacity" var: cleaner_max_capacity min: 1 max: 10;
+    
+    output {
+        display map type: 3d {
+            species obstacle;
+            species pedestrian_path transparency: 0.5;
+            species bin aspect: default;
+            species cleaner aspect: default;
+            
+            // Display statistics
+            graphics "stats" {
+                draw "Bins emptied: " + total_bins_emptied at: {10, 10} color: #black font: font("Arial", 16, #bold);
+                draw "Distance traveled: " + int(total_distance_traveled) at: {10, 30} color: #black font: font("Arial", 16, #bold);
+            }
+        }
+        
+        // Monitor for filled bins
+        monitor "Filled Bins" value: length(bin where (each.is_full));
+        monitor "Cleaner State" value: first(cleaner).state;
+        monitor "Total Bins Emptied" value: total_bins_emptied;
+        monitor "Total Distance" value: int(total_distance_traveled);
+    }
+}
