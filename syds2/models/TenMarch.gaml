@@ -125,5 +125,6 @@ experiment fieldofvision type: gui {
 			species bin aspect: base;
 		}
 	}
+
 }
  
