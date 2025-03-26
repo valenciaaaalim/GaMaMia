@@ -45,7 +45,15 @@ global {
     int nbr_people <- 10;
     
     // 11 tenant locations
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     list <point> tenant_locations <- [{30,13,0},{38,13,0},{49,13,0},{60,13,0},{63,30,0},{48,30,0},{28,30,0},{34,30,0},{34,50,0},{60,50,0}];
+=======
+=======
+>>>>>>> Stashed changes
+    list <point> tenant_locations <- [{30,13,0},{38,13,0},{49,13,0},{60,13,0},{63,30,0},{48,30,0},{28,30,0},{34,30,0},{34,50,0},{60,50,0},{14,32,0}];
+   
+>>>>>>> Stashed changes
     
     // set each step to be 1 minute
     float step <- 1.0 #mn;
@@ -102,7 +110,14 @@ global {
         // Create a bin at a random location
         // assume all bins start at 0 capacity
         create bin {
+<<<<<<< Updated upstream
         	bin_index <- 0;
+=======
+        	bin_index <- 1;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             location <- free_space.points at 1 - {-bin_width,bin_width};
             current_capacity <- 0.0;
             ask central_bin{
@@ -111,7 +126,14 @@ global {
         }
         
         create bin {
+<<<<<<< Updated upstream
         	bin_index <- 1;
+=======
+        	bin_index <- 2;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             location <- free_space.points at 2 - {0,bin_width};
             current_capacity <- 0.0;
             ask central_bin{
@@ -131,7 +153,15 @@ global {
         
         create bin  {
         	bin_index <- 3;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
             location <- free_space.points at 4 - {bin_width,0};
+=======
+            location <- free_space.points at 3 - {bin_width,bin_width};
+>>>>>>> Stashed changes
+=======
+            location <- free_space.points at 3 - {bin_width,bin_width};
+>>>>>>> Stashed changes
             current_capacity <- 0.0;
             ask central_bin{
             	myself.distance_to_central_bin <- self.location distance_to myself.location;
@@ -140,6 +170,24 @@ global {
         
         create bin  {
         	bin_index <- 4;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+=======
+>>>>>>> Stashed changes
+            location <- free_space.points at 4 - {bin_width,0};
+            current_capacity <- 0.0;
+            ask central_bin{
+            	myself.distance_to_central_bin <- self.location distance_to myself.location;
+            }
+        }
+        
+        create bin  {
+        	bin_index <- 5;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             location <- free_space.points at 5 - {bin_width,-bin_width};
             current_capacity <- 0.0;
             ask central_bin{
@@ -160,6 +208,8 @@ global {
 
            
         }
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
         
         loop i from: 0 to: nbr_people-1{
@@ -171,6 +221,29 @@ global {
             	home_base <- location;
             	trash_generation_lambda <- rnd(0.3, 1.0);
             	
+=======
+=======
+>>>>>>> Stashed changes
+//        
+//        // Create tenant agents
+//        create people{
+//        	
+//        	home_base <- tenant_locations at 10;
+//        	has_trash <- false;
+//        	trash_on_hand<- 0.0;
+//            location <- home_base;
+//            trash_generation_multiplier <- rnd(0.3, 1.0);
+//        }
+//        
+        // Create tenant agents
+        create people number: nbr_people{
+        	
+        	location <- one_of(tenant_locations);
+        	has_trash <- false;
+        	trash_on_hand<- 0.0;
+            home_base <- location;
+            trash_generation_multiplier <- rnd(0.3, 1.0);
+>>>>>>> Stashed changes
             
 	            // Set pedestrian parameters
 	            obstacle_consideration_distance <- P_obstacle_consideration_distance;
@@ -306,12 +379,18 @@ species cleaner skills:[pedestrian]{
 	 	
 	 }
 	 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	action get_central_bin_location{
 		ask central_bin{
 			myself.central_bin_location <- self.location;
 		}
 	}      
 	
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 	// when cleaner is at rest or when cleaner has just finished cleaning 3 bins
 	reflex CheckIfActivated when: is_cleaning = false and return_to_rest = false and every(20#cycle){
 		
@@ -322,7 +401,14 @@ species cleaner skills:[pedestrian]{
 	        	write "readyBin List: " + readyBins; 
 	        	
 	        	loop ready_bin_list_index from: 0 to: 2 { 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	        		// add first 3 bins into bins_to_clean_order
+=======
+=======
+>>>>>>> Stashed changes
+	        		// add first 4 bins into bins_to_clean_order
+>>>>>>> Stashed changes
 				    bins_to_clean_order <- bins_to_clean_order + (readyBins at ready_bin_list_index);
 				}
 								
