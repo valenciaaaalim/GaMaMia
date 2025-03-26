@@ -1,0 +1,103 @@
+/**
+* Name: NHPPclaude2
+* Based on the internal empty template. 
+* Author: valencia
+* Tags: 
+*/
+
+
+model NHPPclaude2
+
+/* Insert your model definition here */
+
+/**
+* Name: NHPP_Model
+* A model implementing non-homogeneous Poisson process for trash generation
+*/
+
+
+global {
+    float step <- 1.0; 
+    float lambda_max <- 12.0;
+    float T <- 24.0;
+    float interval <- 1.0;
+
+    init {
+        create NHPP_function;
+    }
+}
+
+species NHPP_function {
+    float base_rate <- 1.0;
+    float peak1 <- 10.0;
+    float peak2 <- 8.0;
+    float peak3 <- 6.0;
+
+    list<float> events <- [];
+    list<float> intensity_values <- [];
+    
+    // Calculate intensity at time t
+    float lambda_t (float argt) {
+        float intensity <- base_rate;
+        intensity <- intensity + peak1 * exp(-((argt - 12.0) / 2.0)^2);
+        intensity <- intensity + peak2 * exp(-((argt - 18.0) / 2.0)^2);
+        intensity <- intensity + peak3 * exp(-((argt - 22.0) / 2.0)^2);
+        
+        return intensity;
+    }
+    
+    // Generate non-homogeneous Poisson process events
+    action generate_nhpp (float argT, float amplitude) {
+        float t <- 0.0;
+        list<float> new_events <- [];
+        
+        loop while: (t < argT) {
+            float u1 <- rnd(0.0, 1.0);
+            t <- t - log(u1) / amplitude;
+            
+            if (t < argT) {
+                float acceptance_prob <- lambda_t(t) / amplitude;
+                
+                if (rnd(0.0, 1.0) <= acceptance_prob) {
+                    new_events <- new_events + t;
+                }
+            }
+        }
+        
+        events <- new_events;
+        write "Generated NHPP Count: " + length(events);
+        
+        return events;
+    }
+    
+    // Compute intensity function values for plotting
+    action compute_intensity_function {
+        intensity_values <- [];
+        
+        loop i from: 0.0 to: T step: 0.5 {
+            intensity_values <- intensity_values + lambda_t(i);
+        }
+        
+        return intensity_values;
+    }
+    
+    // Generate new NHPP events
+    reflex generate_trash when: (cycle = 0) or every(24 * #cycle) {
+        do generate_nhpp(T, lambda_max);
+        do compute_intensity_function();
+    }
+}
+
+experiment "Non-Homogeneous Poisson" type: gui {
+    output {
+        display "NHPP Visualization" type: 2d {
+            chart "Intensity Function and Events" type: series {
+                data "Lambda(t)" value: first(NHPP_function).intensity_values color: #blue style: line;
+                }
+            chart "event" type: scatter{         
+                data "Events" value: first(NHPP_function).events color: #red 
+                      marker: true marker_size: 2.0;
+            }
+            }
+        }
+    }

@@ -1,11 +1,11 @@
-!SESSION 2025-03-19 17:17:41.798 -----------------------------------------------
+!SESSION 2025-03-25 13:45:24.316 -----------------------------------------------
 eclipse.buildId=${build.id}
 java.version=17.0.8.1
 java.vendor=Eclipse Adoptium
 BootLoader constants: OS=macosx, ARCH=aarch64, WS=cocoa, NL=en_US
 Command-line arguments:  -os macosx -ws cocoa -arch aarch64 -data @noDefault
 
-!ENTRY org.eclipse.urischeme 4 0 2025-03-19 17:17:52.373
+!ENTRY org.eclipse.urischeme 4 0 2025-03-25 13:45:41.355
 !MESSAGE org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 10; DOCTYPE is disallowed when the feature "http://apache.org/xml/features/disallow-doctype-decl" set to true.
 !STACK 0
 java.lang.IllegalArgumentException: org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 10; DOCTYPE is disallowed when the feature "http://apache.org/xml/features/disallow-doctype-decl" set to true.
@@ -23,7 +23,7 @@ Caused by: org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 10; DOCTY
 	at org.eclipse.urischeme.internal.registration.PlistFileWriter.getDom(PlistFileWriter.java:219)
 	... 6 more
 
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:20:53.578
+!ENTRY org.apache.log4j 4 0 2025-03-25 13:52:07.951
 !MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
 
 !STACK 0
@@ -72,7 +72,7 @@ java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
 
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:21:13.513
+!ENTRY org.apache.log4j 4 0 2025-03-25 17:48:47.007
 !MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
 
 !STACK 0
@@ -121,202 +121,611 @@ java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
 
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:26:20.815
+!ENTRY org.apache.log4j 4 0 2025-03-25 17:48:55.533
 !MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
 
 !STACK 0
-java.lang.NullPointerException
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.notifyModelListenersOnUiThread(XtextDocument.java:569)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:542)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.hover.AbstractEObjectHover.getHoverRegion(AbstractEObjectHover.java:64)
+	at org.eclipse.jface.text.TextViewerHoverManager.computeInformation(TextViewerHoverManager.java:128)
+	at org.eclipse.jface.text.AbstractInformationControlManager.doShowInformation(AbstractInformationControlManager.java:1101)
+	at org.eclipse.jface.text.AbstractHoverInformationControlManager$MouseTracker.mouseHover(AbstractHoverInformationControlManager.java:511)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:212)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4646)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1524)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1547)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1532)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:1325)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4413)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3989)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
 
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:27:45.462
+!ENTRY org.apache.log4j 4 0 2025-03-25 17:48:56.210
 !MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
 
 !STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:52:56.862
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:53:00.299
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:53:01.147
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:53:01.749
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:53:04.540
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:53:06.435
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:53:08.594
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:53:10.713
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:56:28.966
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:56:43.798
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:56:44.485
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:56:49.989
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:57:38.289
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:58:36.733
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:58:39.359
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:58:40.643
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:59:00.839
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 17:59:04.050
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 18:02:44.796
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 18:02:47.041
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 21:16:21.811
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 21:16:38.456
-!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
-
-!STACK 0
-java.lang.NullPointerException
-
-!ENTRY org.apache.log4j 4 0 2025-03-19 22:13:19.001
-!MESSAGE org.eclipse.xtext.ui.editor.reconciler.XtextDocumentReconcileStrategy  - Parsing in reconciler failed.
-
-!STACK 0
-java.lang.NullPointerException: Cannot invoke "org.eclipse.emf.ecore.EObject.eResource()" because "model" is null
-	at org.eclipse.xtext.linking.impl.AbstractCleaningLinker.beforeModelLinked(AbstractCleaningLinker.java:74)
-	at org.eclipse.xtext.linking.impl.AbstractCleaningLinker.linkModel(AbstractCleaningLinker.java:46)
-	at msi.gama.lang.gaml.resource.GamlResource.doLinking(GamlResource.java:333)
-	at org.eclipse.xtext.resource.XtextResource.updateInternalState(XtextResource.java:304)
-	at org.eclipse.xtext.resource.XtextResource.updateInternalState(XtextResource.java:292)
-	at msi.gama.lang.gaml.resource.GamlResource.updateInternalState(GamlResource.java:247)
-	at org.eclipse.xtext.resource.XtextResource.update(XtextResource.java:273)
-	at org.eclipse.xtext.ui.editor.reconciler.XtextDocumentReconcileStrategy.doReconcile(XtextDocumentReconcileStrategy.java:183)
-	at org.eclipse.xtext.ui.editor.reconciler.XtextDocumentReconcileStrategy.reconcile(XtextDocumentReconcileStrategy.java:91)
-	at org.eclipse.xtext.ui.editor.reconciler.XtextReconciler.doRun(XtextReconciler.java:457)
-	at org.eclipse.xtext.ui.editor.reconciler.XtextReconciler$DocumentListener$1.exec(XtextReconciler.java:140)
-	at org.eclipse.xtext.ui.editor.reconciler.XtextReconciler$DocumentListener$1.exec(XtextReconciler.java:1)
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$1(XtextDocument.java:573)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.lambda$0(IReadAccess.java:57)
 	at org.eclipse.xtext.resource.OutdatedStateManager.exec(OutdatedStateManager.java:70)
-	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.modify(XtextDocument.java:432)
-	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.process(XtextDocument.java:340)
-	at org.eclipse.xtext.ui.editor.reconciler.XtextReconciler$DocumentListener.performNecessaryUpdates(XtextReconciler.java:137)
-	at org.eclipse.xtext.ui.editor.model.XtextDocument.updateContentBeforeRead(XtextDocument.java:252)
-	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:523)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:525)
 	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
 	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
-	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:50)
-	at org.eclipse.xtext.ui.editor.occurrences.DefaultOccurrenceComputer.createAnnotationMap(DefaultOccurrenceComputer.java:103)
-	at org.eclipse.xtext.ui.editor.occurrences.OccurrenceMarker$MarkOccurrenceJob.run(OccurrenceMarker.java:156)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$0(XtextDocument.java:572)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4368)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3991)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
 
-!ENTRY org.apache.log4j 4 0 2025-03-19 22:13:19.006
-!MESSAGE org.eclipse.xtext.ui.editor.reconciler.XtextReconciler  - Error while forcing reconciliation
+!ENTRY org.apache.log4j 4 0 2025-03-25 17:48:58.390
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
 
 !STACK 0
-java.lang.NullPointerException: Cannot invoke "org.eclipse.emf.ecore.EObject.eResource()" because "model" is null
-	at org.eclipse.xtext.linking.impl.AbstractCleaningLinker.beforeModelLinked(AbstractCleaningLinker.java:74)
-	at org.eclipse.xtext.linking.impl.AbstractCleaningLinker.linkModel(AbstractCleaningLinker.java:46)
-	at msi.gama.lang.gaml.resource.GamlResource.doLinking(GamlResource.java:333)
-	at org.eclipse.xtext.resource.XtextResource.updateInternalState(XtextResource.java:304)
-	at org.eclipse.xtext.resource.XtextResource.updateInternalState(XtextResource.java:292)
-	at msi.gama.lang.gaml.resource.GamlResource.updateInternalState(GamlResource.java:247)
-	at org.eclipse.xtext.resource.XtextResource.doLoad(XtextResource.java:182)
-	at org.eclipse.xtext.linking.lazy.LazyLinkingResource.doLoad(LazyLinkingResource.java:114)
-	at org.eclipse.xtext.resource.XtextResource.reparse(XtextResource.java:215)
-	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.modify(XtextDocument.java:467)
-	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.process(XtextDocument.java:340)
-	at org.eclipse.xtext.ui.editor.reconciler.XtextReconciler$DocumentListener.performNecessaryUpdates(XtextReconciler.java:137)
-	at org.eclipse.xtext.ui.editor.model.XtextDocument.updateContentBeforeRead(XtextDocument.java:252)
-	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:523)
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.notifyModelListenersOnUiThread(XtextDocument.java:569)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:542)
 	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
 	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
-	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:50)
-	at org.eclipse.xtext.ui.editor.occurrences.DefaultOccurrenceComputer.createAnnotationMap(DefaultOccurrenceComputer.java:103)
-	at org.eclipse.xtext.ui.editor.occurrences.OccurrenceMarker$MarkOccurrenceJob.run(OccurrenceMarker.java:156)
-	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.hover.AbstractEObjectHover.getHoverRegion(AbstractEObjectHover.java:64)
+	at org.eclipse.jface.text.TextViewerHoverManager.computeInformation(TextViewerHoverManager.java:128)
+	at org.eclipse.jface.text.AbstractInformationControlManager.doShowInformation(AbstractInformationControlManager.java:1101)
+	at org.eclipse.jface.text.AbstractHoverInformationControlManager$MouseTracker.mouseHover(AbstractHoverInformationControlManager.java:511)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:212)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4646)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1524)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1547)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1532)
+	at org.eclipse.swt.widgets.Widget.notifyListeners(Widget.java:1325)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:4413)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3989)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
+
+!ENTRY org.apache.log4j 4 0 2025-03-25 17:49:12.535
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$1(XtextDocument.java:573)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.lambda$0(IReadAccess.java:57)
+	at org.eclipse.xtext.resource.OutdatedStateManager.exec(OutdatedStateManager.java:70)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:525)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$0(XtextDocument.java:572)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4368)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3991)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
+
+!ENTRY org.apache.log4j 4 0 2025-03-25 17:49:13.405
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$1(XtextDocument.java:573)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.lambda$0(IReadAccess.java:57)
+	at org.eclipse.xtext.resource.OutdatedStateManager.exec(OutdatedStateManager.java:70)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:525)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$0(XtextDocument.java:572)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4368)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3991)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
+
+!ENTRY org.apache.log4j 4 0 2025-03-25 17:49:18.340
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$1(XtextDocument.java:573)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.lambda$0(IReadAccess.java:57)
+	at org.eclipse.xtext.resource.OutdatedStateManager.exec(OutdatedStateManager.java:70)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:525)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$0(XtextDocument.java:572)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4368)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3991)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
+
+!ENTRY org.apache.log4j 4 0 2025-03-25 17:49:21.824
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$1(XtextDocument.java:573)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.lambda$0(IReadAccess.java:57)
+	at org.eclipse.xtext.resource.OutdatedStateManager.exec(OutdatedStateManager.java:70)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:525)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$0(XtextDocument.java:572)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4368)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3991)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
+
+!ENTRY org.apache.log4j 4 0 2025-03-25 17:49:25.977
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$1(XtextDocument.java:573)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.lambda$0(IReadAccess.java:57)
+	at org.eclipse.xtext.resource.OutdatedStateManager.exec(OutdatedStateManager.java:70)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:525)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$0(XtextDocument.java:572)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4368)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3991)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
+
+!ENTRY org.apache.log4j 4 0 2025-03-26 13:57:41.436
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$1(XtextDocument.java:573)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.lambda$0(IReadAccess.java:57)
+	at org.eclipse.xtext.resource.OutdatedStateManager.exec(OutdatedStateManager.java:70)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:525)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$0(XtextDocument.java:572)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4368)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3991)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
+
+!ENTRY org.apache.log4j 4 0 2025-03-26 13:57:51.419
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException: Cannot invoke "String.isBlank()" because "<local3>" is null
+	at msi.gama.lang.gaml.EGaml.getNameOfRef(EGaml.java:499)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:353)
+	at msi.gama.lang.gaml.EGaml.getKeyOf(EGaml.java:327)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:127)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.process(GamlSemanticHighlightingCalculator.java:114)
+	at msi.gama.lang.gaml.ui.highlight.GamlSemanticHighlightingCalculator.provideHighlightingFor(GamlSemanticHighlightingCalculator.java:88)
+	at org.eclipse.xtext.ide.editor.syntaxcoloring.MergingHighlightedPositionAcceptor.provideHighlightingFor(MergingHighlightedPositionAcceptor.java:64)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.reconcilePositions(HighlightingReconciler.java:158)
+	at org.eclipse.xtext.ui.editor.syntaxcoloring.HighlightingReconciler.modelChanged(HighlightingReconciler.java:418)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.notifyModelListeners(XtextDocument.java:218)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$1(XtextDocument.java:573)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.lambda$0(IReadAccess.java:57)
+	at org.eclipse.xtext.resource.OutdatedStateManager.exec(OutdatedStateManager.java:70)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.internalReadOnly(XtextDocument.java:525)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.readOnly(XtextDocument.java:497)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument.readOnly(XtextDocument.java:136)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:53)
+	at org.eclipse.xtext.util.concurrent.IReadAccess.tryReadOnly(IReadAccess.java:71)
+	at org.eclipse.xtext.ui.editor.model.XtextDocument$XtextDocumentLocker.lambda$0(XtextDocument.java:572)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:40)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:132)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4368)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3991)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
+
+!ENTRY org.apache.log4j 4 0 2025-03-26 13:58:10.330
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.apache.log4j 4 0 2025-03-26 13:58:11.560
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.apache.log4j 4 0 2025-03-26 15:33:56.930
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.apache.log4j 4 0 2025-03-26 15:40:49.968
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.apache.log4j 4 0 2025-03-26 16:32:37.550
+!MESSAGE org.eclipse.xtext.ui.editor.model.XtextDocument  - Error in IXtextModelListener
+
+!STACK 0
+java.lang.NullPointerException
+
+!ENTRY org.eclipse.jface 4 0 2025-03-26 17:33:35.863
+!MESSAGE The command ("org.xtext.example.folding.ui.folding.collapseStrings") is undefined
+!STACK 0
+java.lang.Exception
+	at org.eclipse.jface.action.ExternalActionManager$CommandCallback.isActive(ExternalActionManager.java:367)
+	at org.eclipse.jface.action.ActionContributionItem.isCommandActive(ActionContributionItem.java:634)
+	at org.eclipse.jface.action.ActionContributionItem.isVisible(ActionContributionItem.java:690)
+	at org.eclipse.jface.action.MenuManager.isChildVisible(MenuManager.java:927)
+	at org.eclipse.jface.action.MenuManager.update(MenuManager.java:750)
+	at org.eclipse.jface.action.MenuManager.update(MenuManager.java:673)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.scheduleManagerUpdate(MenuManagerRenderer.java:1227)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.processContents(MenuManagerRenderer.java:655)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.subscribeTopicChildAdded(MenuManagerRenderer.java:325)
+	at jdk.internal.reflect.GeneratedMethodAccessor17.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:58)
+	at org.eclipse.swt.widgets.Synchronizer.syncExec(Synchronizer.java:183)
+	at org.eclipse.ui.internal.UISynchronizer.syncExec(UISynchronizer.java:133)
+	at org.eclipse.swt.widgets.Display.syncExec(Display.java:5250)
+	at org.eclipse.e4.ui.workbench.swt.DisplayUISynchronize.syncExec(DisplayUISynchronize.java:34)
+	at org.eclipse.e4.ui.internal.di.UIEventObjectSupplier$UIEventHandler.handleEvent(UIEventObjectSupplier.java:64)
+	at org.eclipse.equinox.internal.event.EventHandlerWrapper.handleEvent(EventHandlerWrapper.java:205)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:203)
+	at org.eclipse.equinox.internal.event.EventHandlerTracker.dispatchEvent(EventHandlerTracker.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:234)
+	at org.eclipse.osgi.framework.eventmgr.ListenerQueue.dispatchEventSynchronous(ListenerQueue.java:151)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.dispatchEvent(EventAdminImpl.java:133)
+	at org.eclipse.equinox.internal.event.EventAdminImpl.sendEvent(EventAdminImpl.java:75)
+	at org.eclipse.equinox.internal.event.EventComponent.sendEvent(EventComponent.java:44)
+	at org.eclipse.e4.ui.services.internal.events.EventBroker.send(EventBroker.java:55)
+	at org.eclipse.e4.ui.internal.workbench.UIEventPublisher.notifyChanged(UIEventPublisher.java:63)
+	at org.eclipse.emf.common.notify.impl.BasicNotifierImpl.eNotify(BasicNotifierImpl.java:424)
+	at org.eclipse.emf.ecore.util.EcoreEList.dispatchNotification(EcoreEList.java:249)
+	at org.eclipse.emf.common.notify.impl.NotifyingListImpl.addUnique(NotifyingListImpl.java:294)
+	at org.eclipse.emf.common.util.AbstractEList.add(AbstractEList.java:304)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.reconcileManagerToModel(MenuManagerRenderer.java:1076)
+	at org.eclipse.e4.ui.workbench.renderers.swt.MenuManagerRenderer.reconcileManagerToModel(MenuManagerRenderer.java:1014)
+	at org.eclipse.ui.internal.PopupMenuExtender.addMenuContributions(PopupMenuExtender.java:379)
+	at org.eclipse.ui.internal.PopupMenuExtender.menuAboutToShow(PopupMenuExtender.java:355)
+	at org.eclipse.jface.action.MenuManager.fireAboutToShow(MenuManager.java:338)
+	at org.eclipse.jface.action.MenuManager.handleAboutToShow(MenuManager.java:468)
+	at org.eclipse.jface.action.MenuManager$2.menuShown(MenuManager.java:495)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:259)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4646)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1524)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1547)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1528)
+	at org.eclipse.swt.widgets.Menu.menuWillOpen(Menu.java:808)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:6424)
+	at org.eclipse.swt.internal.cocoa.OS.objc_msgSend(Native Method)
+	at org.eclipse.swt.internal.cocoa.NSMenu.popUpContextMenu(NSMenu.java:80)
+	at org.eclipse.swt.widgets.Menu._setVisible(Menu.java:270)
+	at org.eclipse.swt.widgets.Display.runPopups(Display.java:4490)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3982)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:645)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:552)
+	at msi.gama.application.Application.start(Application.java:148)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
