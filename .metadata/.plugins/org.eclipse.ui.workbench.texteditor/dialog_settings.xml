@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="function"/>
+		<item key="selection" value="tenant_locations"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="tenant_locations"/>
+			<item value="x is at"/>
+			<item value="lambda_function"/>
 			<item value="function"/>
 			<item value="times"/>
 			<item value="cycle"/>
@@ -20,9 +23,6 @@
 			<item value="+&lt;-"/>
 			<item value="resting_location"/>
 			<item value="get_central_bin_location"/>
-			<item value="ready_bin_list_index"/>
-			<item value="trash_production"/>
-			<item value="nb_people_not_infected"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

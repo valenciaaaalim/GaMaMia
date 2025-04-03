@@ -18,8 +18,8 @@ model NHPPclaude2
 
 global {
     float step <- 1 #hour; 
-    float lambda_max <- 12.0; // max intensity value for NHPP (aka 12 units of trash max)
-    int T <- 24; // set to 24 hours, total time for process to run
+    float lambda_max <- 12.0; // CHANGE TO 5 max intensity value for NHPP (aka 12 units of trash max)
+    int T <- 23; // set to 24 hours (23 because 0 is coutned), total time for process to run
     float interval <- 1.0; // set to 1 hour interval of production
     
     list events; // store time stamps of NHPP-generated events
@@ -34,8 +34,6 @@ global {
     float trash_amount;
 	
 	
-	
-	
 		
     init {
         create NHPP_function;
@@ -46,9 +44,9 @@ species NHPP_function {
     float base_rate <- 1.0; //min background intensity for NHPP
     
     // amplitudes of peaks in intensity fn at diff times
-    float peak1 <- 10.0; 
-    float peak2 <- 8.0;
-    float peak3 <- 6.0;
+    float peak1 <- 10.0; //12
+    float peak2 <- 8.0; //22
+    float peak3 <- 6.0; //18
 
    
     // Calculate intensity at time t using Gaussian function e^x
@@ -106,7 +104,7 @@ species NHPP_function {
                     events <- events + t;
                     
                     // poisson distribution so intensity is not strictly following lambda fn. scale up and down to prevent vanishing values as poisson returns an int
-                    trash_amount <- poisson(lambda_t(t)*100)/100; 
+                    trash_amount <- gauss(((lambda_t(t)*100)/100),0.5); 
                     trash_list <- trash_list + trash_amount;
                     // write "Trash generated at hour " + (t mod 24) + " with intensity " + trash_amount;
                 }
@@ -139,7 +137,7 @@ experiment "Non-Homogeneous Poisson" type: gui {
             chart "Intensity Function Over 24-hours" type: series {
                 data "Lambda(t) Intensity" value: trash_list color: #blue style: spline;
                 data "Cumulative Trash Events" value: events color: #green style: spline; 
-                data "Intensity Function" value: intensity_values color: #coral style: spline;
+                //data "Intensity Function" value: intensity_values color: #coral style: spline;
                 }
                
             }

@@ -1,0 +1,171 @@
+/**
+* Name: NHPPclaude2
+* Based on the internal empty template. 
+* Author: valencia
+* Tags: 
+*/
+
+
+model NHPPclaude2
+
+/* Insert your model definition here */
+
+/**
+* Name: NHPP_Model
+* A model implementing non-homogeneous Poisson process for trash generation
+*/
+
+
+global {
+    float step <- 1 #hour; 
+    float lambda_max <- 12.0; // max intensity value for NHPP (aka 12 units of trash max)
+    int T <- 23; // set to 24 hours (23 because 0 is coutned), total time for process to run
+    float interval <- 1.0; // set to 1 hour interval of production
+    
+    list events; // store time stamps of NHPP-generated events
+    // by logic this would be a whole number interval, rep hour
+    
+    // fixed values in list becasue lambda(t) is a fixed function and t is enumerating
+    // purely to visualise the distribution in piecewise fn
+    list<float> intensity_values <- []; // stores intensity fn values for visualisation
+    
+    list trash_list;
+    
+    float trash_amount;
+	
+	
+	
+	
+		
+    init {
+        create NHPP_function;
+    }
+}
+
+species NHPP_function {
+    float base_rate <- 1.0; //min background intensity for NHPP
+    
+    // amplitudes of peaks in intensity fn at diff times
+    float peak1 <- 10.0; //12
+    float peak2 <- 8.0; //22
+    float peak3 <- 6.0; //18
+
+   
+    // Calculate intensity at time t using Gaussian function e^x
+    // BRUV negative must be multiplied literally by bracketing the whole thing and * (-1). cannot just -(3^2)
+    float lambda_t (float argt) {
+        float intensity <- base_rate; // starts at base rate 1.0
+        intensity <- intensity + peak1 * exp((-1)*(((argt - 13.0) / 2.0)^2));
+        intensity <- intensity + peak2 * exp((-1)*(((argt - 21.0) / 2.0)^2));
+        intensity <- intensity + peak3 * exp((-1)*(((argt - 12.0) / 2.0)^2));
+        // peaks occur at 12, 18 and 22 hours rep lunch, dinner, close up time
+        
+        // probability of an event happenign at interval t=0 is 0 because area under graph = 0
+        if argt=0 {
+        	intensity <- 0.0;
+        }
+        
+        return intensity;
+    }
+    
+    // Generate non-homogeneous Poisson process events up to time T (24th hour)
+    reflex generate_nhpp when: cycle mod T = 0{ 
+    	
+    	// reset intensity to see per day function (same result across all days)
+        intensity_values <- [];
+    	//reset events to see per day accumulation. remove if want to visualise perday, but in console will be accumulative from start time 0
+    	events <- [];
+        //reset trash_list to see per day trash distribution (will differ, remove if want to see across different days)
+        trash_list <- [];
+
+   		int y <- cycle;// current phase of cycle
+   		write "Cycle number: " + y;
+   		
+   		// list<float> events <- []; // reset event for the day
+
+		float amplitude <- lambda_max;
+        float t <- 0.0; // start at 12am, t=0
+        //list<float> new_events <- []; // store the generated event times
+        
+        
+        
+        // inverse transform sampling
+        loop while: (t < T and cycle < y+T) {
+            float u1 <- rnd(0.0, 1.0); // rndm number u1 is drawn from U[0,1]
+            // next event time is computed following poisson process interarrival time formula
+            float interarrival_time <- - log(u1) / (amplitude); 
+            t <- t + interarrival_time;
+            // if the new time t is within the toal simulation time 24h, acceptance probability is:
+            if (t < T and cycle < y+T) {
+            	
+                float acceptance_prob <- lambda_t(t) / amplitude;
+                // probability calculated is intensity / amplitude of that random time t
+                // the higher the intensity, the higher the probability of event of trash production happening
+                // intensity is higher during peak hours thus during peak hours, more events of trash pdtn
+                if (rnd(0.0, 1.0) <= acceptance_prob) { // event is accepted if rndm number drawn is within the probabiltiy threshold
+                    events <- events + t;
+                    
+                    // poisson distribution so intensity is not strictly following lambda fn. scale up and down to prevent vanishing values as poisson returns an int
+                    trash_amount <- gauss(((lambda_t(t)*100)/100),0.5); 
+                    trash_list <- trash_list + trash_amount;
+                    // write "Trash generated at hour " + (t mod 24) + " with intensity " + trash_amount;
+                }
+            }
+        }
+        
+        loop i from: 0.0 to: T step: 1.0 { //compute intensity fn every h
+        	
+            intensity_values <- intensity_values + lambda_t(i);
+            
+        }
+        
+        //events <- new_events; // store gen event times
+        write "Cumulative trash events on day " + int(cycle/24) + ": " + length(events); 
+        // output total number of events every 24h
+        
+        write "Day ended with t= " + t;
+
+        
+        
+        return events + intensity_values + trash_amount ;
+    }
+    
+
+}
+
+experiment "Non-Homogeneous Poisson" type: gui {
+    output {
+        display "NHPP Visualization" type: 2d {
+            chart "Intensity Function Over 24-hours" type: series {
+                data "Lambda(t) Intensity" value: trash_list color: #blue style: spline;
+                data "Cumulative Trash Events" value: events color: #green style: spline; 
+                //data "Intensity Function" value: intensity_values color: #coral style: spline;
+                }
+               
+            }
+        }
+    }
+    
+    
+    
+        // Compute intensity function values for plotting -> this is fixed for each day
+//    reflex compute_intensity_function when: cycle=0 or every (24 #cycle) {
+//        intensity_values <- [];
+//        
+//        loop i from: 0.0 to: T step: 1.0 { //compute intensity fn every h
+//        	
+//            intensity_values <- intensity_values + lambda_t(i);
+//            // write "t=" + i + ", lambda_t=" + lambda_t(i);
+//        }
+//        
+//       
+//        return intensity_values;
+//        
+//    }
+    
+    // Trigger NHPP event generation while t < T
+//    reflex generate_trash when: (cycle = 0) or every(24 * #cycle) {
+//        do generate_nhpp(T, lambda_max);
+//        do compute_intensity_function();
+//        
+//    }
