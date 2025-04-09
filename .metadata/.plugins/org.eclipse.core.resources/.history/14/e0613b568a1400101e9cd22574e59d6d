@@ -1,0 +1,143 @@
+/**
+* Name: NHPPTenant
+* Based on the internal empty template. 
+* Author: valencia
+* Tags: 
+*/
+
+
+model NHPPTenant
+
+/* Insert your model definition here */
+
+
+
+global {
+    float step <- 1 #minute; 
+    int T <- 1380; // set to 24 hours (23 because 0 is coutned), total time for process to run
+    list events;
+    list trash_list;
+	
+    init {
+        create NHPP_function;
+    }
+}
+
+species NHPP_function {    
+    
+    // h1 < h2
+    float base_rate <- 0.003083;
+    float amp1 <- 0.014778;
+    float center1 <- 690.00;
+    float amp2 <- 0.021514;
+    float center2 <- 870.00;
+    int fixed_width <- 60;
+    
+   	float lambda_max <- max(amp1,amp2);
+   	
+    float mean_trash_amount <- 0.3;
+    float sd_trash_amount <- 0.05;
+    
+
+    float trash_amount;
+    list<float> intensity_values <- []; // stores intensity fn values for visualisation
+    
+    
+
+//	// h1 > h2
+//    float base_rate <- 0.002704;
+//    float amp1 <- 0.017833;
+//    float center1 <- 690.00;
+//    float amp2 <- 0.012104;
+//    float center2 <- 870.00;
+//    int fixed_width <- 60;
+//
+//    
+//    // h1 = h2
+//    float base_rate <- 0.002280;
+//    float amp1 <- 0.018793;
+//    float center1 <- 690.00;
+//    float amp2 <- 0.018793;
+//    float center2 <- 870.00;
+//    int fixed_width <- 60;
+ 
+
+
+   float lambda_t (float t) {
+    	
+    	float intensity;
+    	
+    	intensity <- intensity + base_rate;
+    	intensity <- intensity + amp1 * exp((-1)*((t-center1)^2)/((2*fixed_width)^2));
+    	intensity <- intensity + amp2 * exp((-1)*((t-center2)^2)/((2*fixed_width)^2));
+    	
+    	return intensity;
+    	
+    }
+    
+    
+    
+    // Generate non-homogeneous Poisson process events up to time T (24th hour)
+    reflex generate_nhpp when: cycle mod T = 0{ 
+    	
+    	// reset intensity to see per day function (same result across all days)
+        intensity_values <- [];
+    	//reset events to see per day accumulation. remove if want to visualise perday, but in console will be accumulative from start time 0
+    	events <- [];
+        //reset trash_list to see per day trash distribution (will differ, remove if want to see across different days)
+        trash_list <- [];
+
+   		int y <- cycle;// current phase of cycle
+   		write "Cycle number: " + y;
+	
+        float t <- 0.0; 
+        
+        loop i from: 1 to: 1380 step: 1#cycle {
+        	float candidate <- rnd(0.0,1.0);
+            float acceptance_prob <- lambda_t(t) / lambda_max;
+     
+            if (candidate <= acceptance_prob) { 
+                    events <- events + t;
+                    trash_amount <- gauss(mean_trash_amount, sd_trash_amount);
+                    trash_list <- trash_list + trash_amount;
+                    // write "Trash generated at hour " + (t mod 24) + " with intensity " + trash_amount;
+                
+        }
+
+        }
+        
+        
+        loop i from: 0.0 to: T step: 1.0 { //compute intensity fn every h
+        	
+            intensity_values <- intensity_values + lambda_t(i);
+            
+        }
+        
+        write "Cumulative trash events on day " + int(cycle/T) + ": " + length(events); 
+        // output total number of events every 24h
+        
+        write "Day ended at t= " + t;
+
+        
+        
+        return events + intensity_values + trash_amount ;
+    }
+    
+
+}
+experiment Benchmarking type: gui benchmark: true { }
+
+
+experiment "Non-Homogeneous Poisson" type: gui {
+    output {
+        display "NHPP Visualization" type: 2d {
+            chart "Trash Generated Over 24-hours" type: series {
+                data "Volume of Trash Generated in Litres" value: trash_list color: #blue style: spline;
+                data "Cumulative Trash Generation Events" value: events color: #green style: spline; 
+                //data "Intensity Function" value: intensity_values color: #coral style: spline;
+                }
+               
+            }
+        }
+    }
+    
