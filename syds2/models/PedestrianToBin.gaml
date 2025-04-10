@@ -88,7 +88,7 @@ global {
 		
 
 		pedestrian_network <- as_edge_graph(pedestrian_path);
-		
+
 		ask pedestrian_path {
 			do build_intersection_areas pedestrian_graph: pedestrian_network;
 		}
