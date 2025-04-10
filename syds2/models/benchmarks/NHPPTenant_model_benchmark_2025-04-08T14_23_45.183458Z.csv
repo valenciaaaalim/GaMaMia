@@ -1,0 +1,123 @@
+Execution;Time in ms in Scope #181 of Benchmarking(0);Invocations in Scope #181 of Benchmarking(0);Time in ms in Scope #179 (in ExperimentPlan);Invocations in Scope #179 (in ExperimentPlan);Time in ms in Scope #183 of NHPPTenant_model(0);Invocations in Scope #183 of NHPPTenant_model(0)
+model NHPPTenant
+
+global ;;;;;;
+list<NHPPTenant_model> peers ;;;;;0;1
+-199;;;;;;
+experiment host ;;;;;0;1
+-29;;;;;;
+NHPPTenant_model world ;;;;;0;1
+-27;;;;;;
+experiment experiment ;;;;;0;1
+-31;;;;;;
+float step <- 1 * #minute ;;;;;0;1
+1 * #minute;;;;;0;1
+int T <- 1380 ;;;;;0;1
+list events ;;;;;0;1
+list trash_list ;;;;;0;1
+list<NHPP_function> NHPP_function ;;;;;0;1
+species NHPP_function ;;;;;;
+list<NHPP_function> peers ;;;;;0;1
+-199;;;;;;
+NHPPTenant_model host ;;;;;0;1
+-29;;;;;;
+float base_rate <- 0.003083 ;;;;;0;1
+float amp1 <- 0.014778 ;;;;;0;1
+float center1 <- 690.0 ;;;;;0;1
+float amp2 <- 0.021514 ;;;;;0;1
+float center2 <- 870.0 ;;;;;0;1
+int fixed_width <- 60 ;;;;;0;1
+float lambda_max <- max([amp1,amp2]) ;;;;;0;1
+max([amp1,amp2]);;;;;0;1
+[amp1,amp2];;;;;0;1
+float mean_trash_amount <- 0.3 ;;;;;0;1
+float sd_trash_amount <- 0.05 ;;;;;0;1
+float trash_amount ;;;;;0;1
+list<float> intensity_values <- [] ;;;;;0;1
+[];;;;;0;1
+float lambda_t (float t);;;;;8002;1613469
+arg t type: float ;;;;;37;1613469
+let intensity type: float ;;;;;79;1613470
+set intensity value: intensity + base_rate ;;;;;471;1613471
+intensity + base_rate;;;;;200;1613472
+set intensity value: intensity + (amp1 * exp((-1 * ((t - center1) ^ 2)) / ((2 * fixed_width) ^ 2))) ;;;;;2928;1613476
+intensity + (amp1 * exp((-1 * ((t - center1) ^ 2)) / ((2 * fixed_width) ^ 2)));;;;;2665;1613478
+amp1 * exp((-1 * ((t - center1) ^ 2)) / ((2 * fixed_width) ^ 2));;;;;2411;1613480
+exp((-1 * ((t - center1) ^ 2)) / ((2 * fixed_width) ^ 2));;;;;2123;1613481
+(-1 * ((t - center1) ^ 2)) / ((2 * fixed_width) ^ 2);;;;;1786;1613483
+-1 * ((t - center1) ^ 2);;;;;960;1613484
+-1;;;;;91;1613485
+(t - center1) ^ 2;;;;;429;1613486
+t - center1;;;;;167;1613487
+(2 * fixed_width) ^ 2;;;;;377;1613488
+2 * fixed_width;;;;;101;1613488
+set intensity value: intensity + (amp2 * exp((-1 * ((t - center2) ^ 2)) / ((2 * fixed_width) ^ 2))) ;;;;;2710;1613491
+intensity + (amp2 * exp((-1 * ((t - center2) ^ 2)) / ((2 * fixed_width) ^ 2)));;;;;2500;1613491
+amp2 * exp((-1 * ((t - center2) ^ 2)) / ((2 * fixed_width) ^ 2));;;;;2264;1613491
+exp((-1 * ((t - center2) ^ 2)) / ((2 * fixed_width) ^ 2));;;;;1968;1613491
+(-1 * ((t - center2) ^ 2)) / ((2 * fixed_width) ^ 2);;;;;1658;1613491
+-1 * ((t - center2) ^ 2);;;;;893;1613491
+-1;;;;;78;1613491
+(t - center2) ^ 2;;;;;408;1613491
+t - center2;;;;;127;1613491
+(2 * fixed_width) ^ 2;;;;;376;1613491
+2 * fixed_width;;;;;125;1613491
+return intensity ;;;;;107;1613491
+reflex generate_nhpp when: mod(cycle,T) = 0 ;;;;;;
+mod(cycle,T) = 0;;;;;0;1
+mod(cycle,T);;;;;0;1
+set intensity_values value: [] ;;;;;0;1
+[];;;;;0;1
+set events value: [] ;;;;;1;1
+[];;;;;0;1
+set trash_list value: [] ;;;;;0;1
+[];;;;;0;1
+let y type: int value: cycle ;;;;;0;1
+write 'Cycle number: ' + y ;;;;;0;1
+'Cycle number: ' + y;;;;;0;1
+let t type: float value: 0.0 ;;;;;0;1
+loop while: (t < T) and (cycle < (y + T)) ;;;;;;
+(t < T) and (cycle < (y + T));;;;;1049;1613499
+t < T;;;;;205;1613499
+cycle < (y + T);;;;;444;1613499
+y + T;;;;;174;1613499
+let candidate type: float value: rnd(0.0,1.0) ;;;;;409;1613499
+rnd(0.0,1.0);;;;;131;1613499
+let acceptance_prob type: float value: (self.lambda_t(t:t)) / lambda_max ;;;;;9005;1613499
+(self.lambda_t(t:t)) / lambda_max;;;;;8762;1613499
+self.lambda_t(t:t);;;;;;
+if candidate <= acceptance_prob ;;;;;20290;1613498
+candidate <= acceptance_prob;;;;;128;1613499
+set events value: events + t ;;;;;9878;231057
+events + t;;;;;9820;231057
+set trash_amount value: gauss(mean_trash_amount,sd_trash_amount) ;;;;;102;231057
+gauss(mean_trash_amount,sd_trash_amount);;;;;61;231057
+set trash_list value: trash_list + trash_amount ;;;;;9838;231057
+trash_list + trash_amount;;;;;9786;231057
+loop i from: 0.0 step: 1.0 to: T ;;;;;;
+set intensity_values value: intensity_values + (self.lambda_t(t:i)) ;;;;;;
+intensity_values + (self.lambda_t(t:i));;;;;;
+self.lambda_t(t:i);;;;;;
+write (('Cumulative trash events on day ' + int(cycle / T)) + ': ') + length(events) ;;;;;;
+(('Cumulative trash events on day ' + int(cycle / T)) + ': ') + length(events);;;;;;
+('Cumulative trash events on day ' + int(cycle / T)) + ': ';;;;;;
+'Cumulative trash events on day ' + int(cycle / T);;;;;;
+int(cycle / T);;;;;;
+cycle / T;;;;;;
+length(events);;;;;;
+write 'Day ended at t= ' + t ;;;;;;
+'Day ended at t= ' + t;;;;;;
+return (events + intensity_values) + trash_amount ;;;;;;
+(events + intensity_values) + trash_amount;;;;;;
+events + intensity_values;;;;;;
+init ;;;;;0;1
+create NHPP_function ;;;;;0;1
+experiment 'Benchmarking' type: 'gui' title: 'Experiment Benchmarking' benchmark: true ;;;;;;
+list<Benchmarking> peers ;;;0;1;;
+-199;;;;;;
+NHPPTenant_model host ;;;0;1;;
+-29;;;;;;
+NHPPTenant_model simulation ;;;0;1;;
+-27;;;;;;
+list<NHPPTenant_model> simulations ;;;0;1;;
+-27;;;;;;

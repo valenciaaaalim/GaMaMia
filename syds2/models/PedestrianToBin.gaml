@@ -88,7 +88,7 @@ global {
 		
 
 		pedestrian_network <- as_edge_graph(pedestrian_path);
-		
+
 		ask pedestrian_path {
 			do build_intersection_areas pedestrian_graph: pedestrian_network;
 		}
@@ -592,7 +592,7 @@ experiment pedestrian_navigation type: gui {
         }
    
     	display "my_display"{
-	   		chart "my_chart" type: series{
+	   		chart "Trash Production per Tenant / Time" type: series{
 				datalist people collect (each.name) value:  people collect (each.trash_on_hand) color: people collect (each.color) marker: false style: spline thickness:2;
 		    }
 		}
