@@ -18,26 +18,10 @@ global {
 //	shape_file pedestrian_paths_shape_file <- shape_file("../includes/pedestrian paths.shp");
 //	shape_file open_area_shape_file <- shape_file("../includes/vidacity_shapes/floor_1_outerwall.shp");
 
-	// visualisation of layout for lvl 1
-	shape_file free_spaces_shape_file <- shape_file("../includes/vidacity_shapes/floor_1_outerwall.shp");
+	font agent_font <- font("Helvetica", 14, #bold );
 	
-	// store blocks
-	file store_floor_file <- file("../includes/vidacity_shapes/floor_1_blockdict.shp");
-	
-	// routes for lvl 1
-	shape_file pedestrian_paths_shape_file <- shape_file("../includes/vidacity_shapes/floor_1_path_segments.shp");
 
-	// store boundaries for lvl 1
-	file wall_shapefile <- file("../includes/vidacity_shapes/floor_1_tenant_lines.shp");
-	
-	//bin locations for lvl 1
-	file bin_location_floor_1 <- file("../includes/vidacity_shapes/floor_1_bins.shp");
-	
-	// tenant spawn location for lvl 1
-	file agent_spawn_locations_floor_1 <- file("../includes/vidacity_shapes/floor_1_agent.shp");
-	
-	//Set environment size
-	geometry shape <- envelope(first(free_spaces_shape_file.contents));
+
 	
     // set each step to be 1 minute
     float step <- 1 #second;
@@ -55,26 +39,48 @@ global {
 	
 	int total_complaints <- 0;
 	float total_time_bin_overflowed <- 0.0;
+	
+	
+////////////////////////////////////////// LEVEL 1 //////////////////////////////////////////
+	// visualisation of layout for lvl 1
+	shape_file free_spaces_1_shape_file <- shape_file("../includes/vidacity_shapes/floor_1_outerwall.shp");
+	
+	// store blocks
+	file store_floor_1_file <- file("../includes/vidacity_shapes/floor_1_blockdict.shp");
+	
+	// routes for lvl 1
+	shape_file pedestrian_paths_floor_1_shape_file <- shape_file("../includes/vidacity_shapes/floor_1_path_segments.shp");
+
+	// store boundaries for lvl 1
+	file wall_floor_1_shapefile <- file("../includes/vidacity_shapes/floor_1_tenant_lines.shp");
+	
+	//bin locations for lvl 1
+	file bin_location_floor_1 <- file("../includes/vidacity_shapes/floor_1_bins.shp");
+	
+	// tenant spawn location for lvl 1
+	file agent_spawn_locations_floor_1 <- file("../includes/vidacity_shapes/floor_1_agent.shp");
+	
+
 
 	// For 9 stores on level 1:
 	
-	int lvl1_store_0_no_tenants <- 25 parameter:true category:"Level 1";
+	int lvl1_store_0_no_tenants <- 5 parameter:true category:"Level 1";
 
-	int lvl1_store_1_no_tenants <- 25 parameter:true category:"Level 1"; // current issue is it doesnt create agents specific to each store initialised
+	int lvl1_store_1_no_tenants <- 2 parameter:true category:"Level 1"; // current issue is it doesnt create agents specific to each store initialised
 
-	int lvl1_store_2_no_tenants <- 60 parameter:true category:"Level 1";
+	int lvl1_store_2_no_tenants <- 2 parameter:true category:"Level 1";
 	
-	int lvl1_store_3_no_tenants <- 180 parameter:true category:"Level 1";
+	int lvl1_store_3_no_tenants <- 1 parameter:true category:"Level 1";
 
-	int lvl1_store_4_no_tenants <- 40 parameter:true category:"Level 1";
+	int lvl1_store_4_no_tenants <- 5 parameter:true category:"Level 1";
 
 	int lvl1_store_5_no_tenants <- 5 parameter:true category:"Level 1";
 
-	int lvl1_store_6_no_tenants <- 95 parameter:true category:"Level 1";
+	int lvl1_store_6_no_tenants <- 5 parameter:true category:"Level 1";
 
-	int lvl1_store_7_no_tenants <- 2 parameter:true category:"Level 1";
+	int lvl1_store_7_no_tenants <- 5 parameter:true category:"Level 1";
 	
-	int lvl1_store_8_no_tenants <- 200 parameter:true category:"Level 1";
+	int lvl1_store_8_no_tenants <- 5 parameter:true category:"Level 1";
 	
 	list no_of_tenants_per_store_lvl1 <- [
 		lvl1_store_0_no_tenants,
@@ -87,12 +93,252 @@ global {
 		lvl1_store_7_no_tenants,
 		lvl1_store_8_no_tenants
 	];
-    
+	
+	list<point> store_text_location_1 <-[
+		{-50,250,0},
+		{38,140,0},
+		{135,344,0},
+		{212,285,0},
+		{120,110,0},
+		{270,145,0},
+		{405,253,0},
+		{474,256,0},
+		{410,162,0}
+		
+	];
+	
+////////////////////////////////////////// LEVEL 1 //////////////////////////////////////////
 
-    // Graph for navigation
-    graph pedestrian_network;
+
     
-	geometry vida_layout_floor_1 <-first(free_spaces_shape_file);
+	//Set environment size
+	geometry shape <- envelope(first(free_spaces_1_shape_file.contents));
+	
+////////////////////////////////////////// LEVEL 2 //////////////////////////////////////////
+	// visualisation of layout for lvl 1
+	shape_file free_spaces_2_shape_file <- shape_file("../includes/vidacity_shapes/floor_2_outerwall.shp");
+	
+	// store blocks
+	file store_floor_2_file <- file("../includes/vidacity_shapes/floor_2_blockdict.shp");
+	
+	// routes for lvl 1
+	shape_file pedestrian_paths_floor_2_shape_file <- shape_file("../includes/vidacity_shapes/floor_2_path_segments.shp");
+
+	// store boundaries for lvl 1
+	file wall_floor_2_shapefile <- file("../includes/vidacity_shapes/floor_2_tenant_lines.shp");
+	
+	//bin locations for lvl 1
+	file bin_location_floor_2 <- file("../includes/vidacity_shapes/floor_2_bins.shp");
+	
+	// tenant spawn location for lvl 1
+	file agent_spawn_locations_floor_2 <- file("../includes/vidacity_shapes/floor_2_agent.shp");
+	
+
+
+	// For 13 stores on level 2:
+	
+	int lvl2_store_0_no_tenants <- 5 parameter:true category:"Level 2";
+
+	int lvl2_store_1_no_tenants <- 5 parameter:true category:"Level 2"; // current issue is it doesnt create agents specific to each store initialised
+
+	int lvl2_store_2_no_tenants <- 5 parameter:true category:"Level 2";
+	
+	int lvl2_store_3_no_tenants <- 5 parameter:true category:"Level 2";
+	
+	int lvl2_store_4_no_tenants <- 5 parameter:true category:"Level 2";
+
+	int lvl2_store_5_no_tenants <- 5 parameter:true category:"Level 2";
+
+	int lvl2_store_6_no_tenants <- 5 parameter:true category:"Level 2";
+
+	int lvl2_store_7_no_tenants <- 5 parameter:true category:"Level 2";
+	
+	int lvl2_store_8_no_tenants <- 5 parameter:true category:"Level 2";
+	
+	int lvl2_store_9_no_tenants <- 5 parameter:true category:"Level 2";
+	
+	int lvl2_store_10_no_tenants <- 5 parameter:true category:"Level 2";
+	
+	int lvl2_store_11_no_tenants <- 5 parameter:true category:"Level 2";
+	
+	int lvl2_store_12_no_tenants <- 5 parameter:true category:"Level 2";
+	
+	
+	
+	list no_of_tenants_per_store_lvl2 <- [
+		lvl2_store_0_no_tenants,
+		lvl2_store_1_no_tenants,
+		lvl2_store_2_no_tenants,
+		lvl2_store_3_no_tenants,
+		lvl2_store_4_no_tenants,
+		lvl2_store_5_no_tenants,
+		lvl2_store_6_no_tenants,
+		lvl2_store_7_no_tenants,
+		lvl2_store_8_no_tenants,
+		lvl2_store_9_no_tenants,
+		lvl2_store_10_no_tenants,
+		lvl2_store_11_no_tenants,
+		lvl2_store_12_no_tenants
+		
+	];
+	
+	list<point> store_text_location_2 <-[
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0}
+		
+	];
+	
+////////////////////////////////////////// LEVEL 2 //////////////////////////////////////////
+
+////////////////////////////////////////// LEVEL 3 //////////////////////////////////////////
+	// visualisation of layout for lvl 1
+	shape_file free_spaces_3_shape_file <- shape_file("../includes/vidacity_shapes/floor_3_outerwall.shp");
+	
+	// store blocks
+	file store_floor_3_file <- file("../includes/vidacity_shapes/floor_3_blockdict.shp");
+	
+	// routes for lvl 1
+	shape_file pedestrian_paths_floor_3_shape_file <- shape_file("../includes/vidacity_shapes/floor_3_path_segments.shp");
+
+	// store boundaries for lvl 1
+	file wall_floor_3_shapefile <- file("../includes/vidacity_shapes/floor_3_tenant_lines.shp");
+	
+	//bin locations for lvl 1
+	file bin_location_floor_3 <- file("../includes/vidacity_shapes/floor_3_bins.shp");
+	
+	// tenant spawn location for lvl 1
+	file agent_spawn_locations_floor_3 <- file("../includes/vidacity_shapes/floor_3_agent.shp");
+	
+
+
+	// For 7 stores on level 2:
+	
+	int lvl3_store_0_no_tenants <- 5 parameter:true category:"Level 3";
+
+	int lvl3_store_1_no_tenants <- 5 parameter:true category:"Level 3"; // current issue is it doesnt create agents specific to each store initialised
+
+	int lvl3_store_2_no_tenants <- 5 parameter:true category:"Level 3";
+	
+	int lvl3_store_3_no_tenants <- 5 parameter:true category:"Level 3";
+	
+	int lvl3_store_4_no_tenants <- 5 parameter:true category:"Level 3";
+
+	int lvl3_store_5_no_tenants <- 5 parameter:true category:"Level 3";
+
+	int lvl3_store_6_no_tenants <- 5 parameter:true category:"Level 3";
+
+
+	
+
+	
+	list no_of_tenants_per_store_lvl3 <- [
+		lvl2_store_0_no_tenants,
+		lvl2_store_1_no_tenants,
+		lvl2_store_2_no_tenants,
+		lvl2_store_3_no_tenants,
+		lvl2_store_4_no_tenants,
+		lvl2_store_5_no_tenants,
+		lvl2_store_6_no_tenants
+	];
+	
+	list<point> store_text_location_3 <-[
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0}
+		
+	];
+	
+////////////////////////////////////////// LEVEL 3 //////////////////////////////////////////
+
+////////////////////////////////////////// LEVEL 4//////////////////////////////////////////
+	// visualisation of layout for lvl 1
+	shape_file free_spaces_4_shape_file <- shape_file("../includes/vidacity_shapes/floor_4_outerwall.shp");
+	
+	// store blocks
+	file store_floor_4_file <- file("../includes/vidacity_shapes/floor_4_blockdict.shp");
+	
+	// routes for lvl 1
+	shape_file pedestrian_paths_floor_4_shape_file <- shape_file("../includes/vidacity_shapes/floor_4_path_segments.shp");
+
+	// store boundaries for lvl 1
+	file wall_floor_4_shapefile <- file("../includes/vidacity_shapes/floor_4_tenant_lines.shp");
+	
+	//bin locations for lvl 1
+	file bin_location_floor_4 <- file("../includes/vidacity_shapes/floor_4_bins.shp");
+	
+	// tenant spawn location for lvl 1
+	file agent_spawn_locations_floor_4 <- file("../includes/vidacity_shapes/floor_4_agent.shp");
+	
+
+
+	// For 4 stores on level 2:
+	
+	int lvl4_store_0_no_tenants <- 5 parameter:true category:"Level 4";
+
+	int lvl4_store_1_no_tenants <- 5 parameter:true category:"Level 4"; // current issue is it doesnt create agents specific to each store initialised
+
+	int lvl4_store_2_no_tenants <- 5 parameter:true category:"Level 4";
+	
+	int lvl4_store_3_no_tenants <- 5 parameter:true category:"Level 4";
+	
+	
+	list no_of_tenants_per_store_lvl4 <- [
+		lvl2_store_0_no_tenants,
+		lvl2_store_1_no_tenants,
+		lvl2_store_2_no_tenants,
+		lvl2_store_3_no_tenants
+
+	];
+	
+	list<point> store_text_location_4 <-[
+		{0,0,0},
+		{0,0,0},
+		{0,0,0},
+		{0,0,0}
+		
+	];
+	
+////////////////////////////////////////// LEVEL 4 //////////////////////////////////////////
+
+ 	list total_tenant_list <- 
+ 		no_of_tenants_per_store_lvl1 +
+ 		no_of_tenants_per_store_lvl2 +
+ 		no_of_tenants_per_store_lvl3 +
+ 		no_of_tenants_per_store_lvl4
+ 	;
+ 	
+ 	list total_store_text_loc_list <-
+ 		store_text_location_1 +
+ 		store_text_location_2 +
+ 		store_text_location_3 +
+ 		store_text_location_4
+ 	;
+ 	
+	
+    // Graph for navigation
+    graph pedestrian_network_1;
+    graph pedestrian_network_2;
+    graph pedestrian_network_3;
+    graph pedestrian_network_4;
+    
+    list<graph> pedestrian_network_list;
+    
+   
 	
     
     ///////////////////////    NHPP    /////////////////////    NHPP    /////////////////////    NHPP    /////////////////////
@@ -110,32 +356,7 @@ global {
 
     init {
     	
-    
-    	 
-    	    	    	
-        // Create obstacles
-        create obstacle from: wall_shapefile;
-        create vida_lvl_1 from: free_spaces_shape_file;
-
-
-		// create path for tenants
-        create pedestrian_path from: pedestrian_paths_shape_file;
-		pedestrian_network <- as_edge_graph(pedestrian_path);
-		
-		
-		
-//		// get number of tenants per store created, starting from index 0
-//		create people number: no_of_tenants_per_store_lvl1 at self.index{
-//			location <- self.location;
-//			write "tenant location at: " + location;
-//    		has_trash <- false;
-//    		trash_on_hand<- 0.0;
-//        	home_base <- location;
-//        	trash_generation_lambda <- rnd(0.3, 1.0);
-//			
-//		}
-		
-		
+    	
         // create cleaner agent
         create cleaner{
         	location <- {97,90,0};
@@ -151,8 +372,87 @@ global {
 			location <- {178,90,0};
 		}		
 		
+		
+		
+		
+    	
+    	// create path for tenants
+	    create pedestrian_path from: pedestrian_paths_floor_1_shape_file with:(
+	    	floor_no:1
+	    	
+	    ){
+	    	pedestrian_network_1 <- as_edge_graph(self);
+	    }
+	    
+	    create pedestrian_path from: pedestrian_paths_floor_2_shape_file with:(
+	    	floor_no:2
+	    ){
+	    	pedestrian_network_2 <- as_edge_graph(self);
+	    }
+	    create pedestrian_path from: pedestrian_paths_floor_3_shape_file with:(
+	    	floor_no:3
+	    ){
+	    	pedestrian_network_3 <- as_edge_graph(self);
+	    }
+	    create pedestrian_path from: pedestrian_paths_floor_4_shape_file with:(
+	    	floor_no:4
+	    ){
+	    	pedestrian_network_4 <- as_edge_graph(self);
+	    }
+	   
+	    
+//	    ask pedestrian_path{
+//	    	if (self.floor_no = 1){
+//	    		pedestrian_network_1 <- as_edge_graph(self);
+//	    		}
+//	    	
+//	    }
+//	    
+//	    ask pedestrian_path{
+//	    	if (self.floor_no = 2){
+//	    		pedestrian_network_2 <- as_edge_graph(self);
+//	    		}
+//	    	
+//	    }
+//	    
+//	    ask pedestrian_path{
+//	    	if (self.floor_no = 3){
+//	    		pedestrian_network_3 <- as_edge_graph(self);
+//	    		}
+//	    	
+//	    }
+//	    
+//	    ask pedestrian_path{
+//	    	if (self.floor_no = 4){
+//	    		pedestrian_network_4 <- as_edge_graph(self);
+//	    		}
+//	    	
+//	    }
+	    
+		
+		pedestrian_network_list <- [
+			pedestrian_network_1,
+			pedestrian_network_2,
+			pedestrian_network_3,
+			pedestrian_network_4
+		];
+		
+//		write"peddy network L " + length(pedestrian_network_list);
+		
+		
+ 
+ ////////////////////////////////////////// LEVEL 1 //////////////////////////////////////////
+    	    	    	
+        // Create obstacles
+        create obstacle from: wall_floor_1_shapefile{
+        	floor_no <- 1;
+        }
+        
+        create vida_lvl_layout_1 from: free_spaces_1_shape_file;
+
 				
 		create bin from: bin_location_floor_1{
+			floor_no <- 1;
             current_capacity <- 0.0;
             // set at 45L (450 units)
             max_capacity <- 30.0; //originally 45
@@ -165,11 +465,138 @@ global {
 		}
 		
 		
-		create store from: agent_spawn_locations_floor_1;
+		create store from: agent_spawn_locations_floor_1 with: (
+			floor_file:store_floor_1_file,
+			floor_no:1,
+			tenant_store_list:total_tenant_list,
+			text_loc_list:total_store_text_loc_list
+			
+		);
 		
 		
-		create store_floor from: store_floor_file;
-    
+		
+		create store_floor from: store_floor_1_file with:(
+			floor_no:1
+		);
+		
+		
+////////////////////////////////////////// LEVEL 1 //////////////////////////////////////////
+////////////////////////////////////////// LEVEL 2 //////////////////////////////////////////
+    	    	    	
+        // Create obstacles
+        create obstacle from: wall_floor_2_shapefile{
+        	floor_no <- 2;
+        }
+        
+        create vida_lvl_layout_2 from: free_spaces_2_shape_file;
+
+				
+		create bin from: bin_location_floor_2{
+			floor_no <- 2;
+            current_capacity <- 0.0;
+            // set at 45L (450 units)
+            max_capacity <- 30.0; //originally 45
+            // set by slider, else 0.6 & 0.9
+            ReadyToClear_capacity <- ReadyToClear_multiplier * max_capacity;
+			AboutToBeFull_capacity<- AboutToBeFull_multiplier * max_capacity;
+            ask central_bin{
+            	myself.distance_to_central_bin <- self.location distance_to myself.location;
+            }
+		}
+		
+		
+		
+		
+		create store from: agent_spawn_locations_floor_2 with: (
+			floor_file:store_floor_2_file,
+			floor_no:2,
+			tenant_store_list:total_tenant_list,
+			text_loc_list:total_store_text_loc_list
+			
+		);
+		
+		
+		
+		create store_floor from: store_floor_2_file with:(
+			floor_no:2
+		);
+		
+////////////////////////////////////////// LEVEL 2 //////////////////////////////////////////
+////////////////////////////////////////// LEVEL 3 //////////////////////////////////////////
+    	    	    	
+        // Create obstacles
+        create obstacle from: wall_floor_3_shapefile{
+        	floor_no <- 3;
+        }
+        
+        create vida_lvl_layout_3 from: free_spaces_3_shape_file;
+
+				
+		create bin from: bin_location_floor_3{
+			floor_no <- 3;
+            current_capacity <- 0.0;
+            // set at 45L (450 units)
+            max_capacity <- 30.0; //originally 45
+            // set by slider, else 0.6 & 0.9
+            ReadyToClear_capacity <- ReadyToClear_multiplier * max_capacity;
+			AboutToBeFull_capacity<- AboutToBeFull_multiplier * max_capacity;
+            ask central_bin{
+            	myself.distance_to_central_bin <- self.location distance_to myself.location;
+            }
+		}
+		
+		
+		create store from: agent_spawn_locations_floor_3 with: (
+			floor_file:store_floor_3_file,
+			floor_no:3,
+			tenant_store_list:total_tenant_list,
+			text_loc_list:total_store_text_loc_list
+			
+		);
+		
+		create store_floor from: store_floor_3_file with:(
+			floor_no:3
+		);
+		
+////////////////////////////////////////// LEVEL 3 //////////////////////////////////////////
+////////////////////////////////////////// LEVEL 4 //////////////////////////////////////////
+    	    	    	
+        // Create obstacles
+        create obstacle from: wall_floor_4_shapefile{
+        	floor_no <- 4;
+        }
+        
+        create vida_lvl_layout_4 from: free_spaces_4_shape_file;
+
+				
+		create bin from: bin_location_floor_4{
+			floor_no <- 4;
+            current_capacity <- 0.0;
+            // set at 45L (450 units)
+            max_capacity <- 30.0; //originally 45
+            // set by slider, else 0.6 & 0.9
+            ReadyToClear_capacity <- ReadyToClear_multiplier * max_capacity;
+			AboutToBeFull_capacity<- AboutToBeFull_multiplier * max_capacity;
+            ask central_bin{
+            	myself.distance_to_central_bin <- self.location distance_to myself.location;
+            }
+		}
+		
+		
+		create store from: agent_spawn_locations_floor_4 with: (
+			floor_file:store_floor_4_file,
+			floor_no:4,
+			tenant_store_list:total_tenant_list,
+			text_loc_list:total_store_text_loc_list
+			
+		);
+		
+		create store_floor from: store_floor_4_file with:(
+			floor_no:4
+		);
+		
+////////////////////////////////////////// LEVEL 4 //////////////////////////////////////////
+
  		
     }
     
@@ -187,13 +614,54 @@ species central_bin{
 
 // Species for pedestrian paths
 species pedestrian_path skills: [pedestrian_road] {
-    aspect default {
-        draw shape color: #gray;
+	int floor_no;
+	
+    
+    aspect floor_1 {
+ 		if floor_no = 1{
+ 			draw shape color: #gray;
+ 		}
+    }
+    
+    aspect floor_2 {
+ 		if floor_no = 2{
+ 			draw shape color: #gray;
+ 		}
+    }
+    
+    aspect floor_3 {
+ 		if floor_no = 3{
+ 			draw shape color: #gray;
+ 		}
+    }
+    
+    aspect floor_4 {
+ 		if floor_no = 4{
+ 			draw shape color: #gray;
+ 		}
     }
 }
 
 // Species for vidacity_lvl_1_outline
-species vida_lvl_1 {
+species vida_lvl_layout_1 {
+    aspect default {
+        draw shape color: #gray border: #black at:{location.x,location.y,location.z-0.1} perspective:false;
+    }
+}
+
+species vida_lvl_layout_2 {
+    aspect default {
+        draw shape color: #gray border: #black at:{location.x,location.y,location.z-0.1} perspective:false;
+    }
+}
+
+species vida_lvl_layout_3 {
+    aspect default {
+        draw shape color: #gray border: #black at:{location.x,location.y,location.z-0.1} perspective:false;
+    }
+}
+
+species vida_lvl_layout_4 {
     aspect default {
         draw shape color: #gray border: #black at:{location.x,location.y,location.z-0.1} perspective:false;
     }
@@ -201,14 +669,52 @@ species vida_lvl_1 {
 
 // Species for obstacles
 species obstacle {
-	aspect default {
-		draw shape + (0.45/2.0) color: #black depth: 10;
+	int floor_no;
+
+	aspect floor_1 {
+		if floor_no = 1{
+			draw shape + (0.45/2.0) color: #black depth: 10;
+		}
+	}
+	aspect floor_2 {
+		if floor_no = 2{
+			draw shape + (0.45/2.0) color: #black depth: 10;
+		}
+	}
+	aspect floor_3 {
+		if floor_no = 3{
+			draw shape + (0.45/2.0) color: #black depth: 10;
+		}
+	}
+	aspect floor_4 {
+		if floor_no = 4{
+			draw shape + (0.45/2.0) color: #black depth: 10;
+		}
 	}
 }
 
 species store_floor {
-	aspect default{
-		draw shape color: #orange ;
+	int floor_no;
+	
+	aspect floor_1 {
+		if floor_no = 1{
+			draw shape color: #orange;
+		}
+	}
+	aspect floor_2 {
+		if floor_no = 2{
+			draw shape color: #orange;
+		}
+	}
+	aspect floor_3 {
+		if floor_no = 3{
+			draw shape color: #orange;
+		}
+	}
+	aspect floor_4 {
+		if floor_no = 4{
+			draw shape color: #orange;
+		}
 	}
 }
 
@@ -224,6 +730,8 @@ species bin {
 	float distance_to_central_bin;
 	float current_distance_to_cleaner <- 0.0;
 	int bin_width <- 6;
+	int bin_displayTextSize <- displayTextSize - 2;
+	int floor_no;
 	
 	reflex check_bin_trash_level{
 		
@@ -252,27 +760,53 @@ species bin {
 		
 	}
 	
-    aspect default {
-        draw square(bin_width) color: bin_color depth: bin_width-5;
-		draw ("Bin " + self.index) color:#black size:displayTextSize at:{location.x-bin_width,location.y+bin_width+displayTextSize} perspective:false;
-		draw ("Fill: " + round(current_capacity*100)/100);
-		draw ("Fill Level: " + int((current_capacity / max_capacity) * 100) + " %") color:#black size:displayTextSize at:{location.x-bin_width,location.y+bin_width+displayTextSize*3} perspective:false; 
-        draw ("Status: " + current_status) color:#black size:(displayTextSize) at:{location.x-bin_width,location.y+bin_width+displayTextSize*5} perspective:false;
     
-    }
+    aspect floor_1 {
+		if floor_no = 1{
+			draw square(bin_width) color: bin_color depth: bin_width;
+		draw ("Bin " + self.index) color:#black size:bin_displayTextSize at:{location.x-3,location.y+bin_width*2} font:agent_font perspective:true;
+		draw ("Fill: " + round(current_capacity*100)/100)  color:#black size:bin_displayTextSize font:agent_font at:{location.x-3,location.y+bin_width*2+bin_displayTextSize*2} perspective:true;
+		}
+	}
+	aspect floor_2 {
+		if floor_no = 2{
+			draw square(bin_width) color: bin_color depth: bin_width;
+		draw ("Bin " + self.index) color:#black size:bin_displayTextSize at:{location.x-3,location.y+bin_width*2} font:agent_font perspective:true;
+		draw ("Fill: " + round(current_capacity*100)/100)  color:#black size:bin_displayTextSize font:agent_font at:{location.x-3,location.y+bin_width*2+bin_displayTextSize*2} perspective:true;
+		}
+	}
+	aspect floor_3 {
+		if floor_no = 3{
+			draw square(bin_width) color: bin_color depth: bin_width;
+		draw ("Bin " + self.index) color:#black size:bin_displayTextSize at:{location.x-3,location.y+bin_width*2} font:agent_font perspective:true;
+		draw ("Fill: " + round(current_capacity*100)/100)  color:#black size:bin_displayTextSize font:agent_font at:{location.x-3,location.y+bin_width*2+bin_displayTextSize*2} perspective:true;
+		}
+	}
+	aspect floor_4 {
+		if floor_no = 4{
+			draw square(bin_width) color: bin_color depth: bin_width;
+		draw ("Bin " + self.index) color:#black size:bin_displayTextSize at:{location.x-3,location.y+bin_width*2} font:agent_font perspective:true;
+		draw ("Fill: " + round(current_capacity*100)/100)  color:#black size:bin_displayTextSize font:agent_font at:{location.x-3,location.y+bin_width*2+bin_displayTextSize*2} perspective:true;
+		}
+	}
 }
 
 species store{
-	
-	int tenant_no <- (no_of_tenants_per_store_lvl1 at self.index);
+	list text_loc_list;
+	point text_loc <- (text_loc_list at self.index);
+	list tenant_store_list;
+	int tenant_no <- (tenant_store_list at self.index);
 	list<agent> tenants_in_store;
 	int current_tenants_in_store;
 	float store_bin <- 0.0;
 	float store_bin_clear_threshold <- 3.0;
 	int store_size <- 20;
+	int floor_no;
+	file floor_file;
 	geometry store_area <- rectangle({location.x-(store_size/2),location.y-(store_size/2)}, {location.x+(store_size/2),location.y+(store_size/2)});
-	geometry spawn_pts <- pedestrian_path first_with (each overlaps store_area and any(store_floor_file) covers(each));
+	geometry spawn_pts <- (pedestrian_network_list at (floor_no-1)) first_with (each intersects store_area and any(floor_file) covers (each));
 	init{
+		
 		
 		write"SPAWN POINTS: " + spawn_pts;
 		
@@ -281,11 +815,11 @@ species store{
 		create people number:tenant_no{
 				name <- ("Tenant " + host.index + "." + self.index);
 				location <- any_location_in(spawn_pts);
-				write "Tenant location at: " + location;
+//				write "Tenant location at: " + location;
 	    		has_trash <- false;
 	    		trash_on_hand<- 0.0;
 	        	home_base <- location;
-	        	write name + " is hosted by " + host;
+//	        	write name + " is hosted by " + host;
 			}
 		
 	}
@@ -322,14 +856,33 @@ species store{
 	}
 	
 	
-
-
-	aspect default {
-		draw square(store_size) color: #burlywood at:{location.x,location.y, location.z-1};
-		draw ("Store " + self.index + " has " + current_tenants_in_store + "/" + tenant_no + " tenants.") color:#magenta size:displayTextSize at:{location.x+5,location.y+5+displayTextSize} perspective:false;
-		draw circle(2) depth: 2 color: #magenta at:{location.x,location.y, location.z-1};
-		draw ("Fill: " + string(round(store_bin*100)/100)) + "/" + store_bin_clear_threshold color: #magenta size: displayTextSize at: {location.x +5 ,location.y +20, location.z-1} perspective:false;
-		draw ("Fill Level: " + int((store_bin / store_bin_clear_threshold) * 100) + " %") color:#magenta size:displayTextSize at:{location.x+5,location.y+25+displayTextSize} perspective:false; 
+	aspect floor_1 {
+		if floor_no = 1{
+			draw square(store_size) color: #burlywood at:{location.x,location.y, location.z-1} ;
+			draw ("Store " + self.index + ": " + current_tenants_in_store + "/" + tenant_no ) font:agent_font color:#black size:displayTextSize at:{text_loc.x+5,text_loc.y+5+displayTextSize} perspective:true;
+			draw ("Fill: " + string(round(store_bin*100)/100)) + "/" + store_bin_clear_threshold color: #black font:agent_font size: displayTextSize at: {text_loc.x +5 ,text_loc.y +20} perspective:true;
+		}
+	}
+	aspect floor_2 {
+		if floor_no = 2{
+			draw square(store_size) color: #burlywood at:{location.x,location.y, location.z-1} ;
+			draw ("Store " + self.index + ": " + current_tenants_in_store + "/" + tenant_no ) font:agent_font color:#black size:displayTextSize at:{text_loc.x+5,text_loc.y+5+displayTextSize} perspective:true;
+			draw ("Fill: " + string(round(store_bin*100)/100)) + "/" + store_bin_clear_threshold color: #black font:agent_font size: displayTextSize at: {text_loc.x +5 ,text_loc.y +20} perspective:true;
+		}
+	}
+	aspect floor_3 {
+		if floor_no = 3{
+			draw square(store_size) color: #burlywood at:{location.x,location.y, location.z-1} ;
+			draw ("Store " + self.index + ": " + current_tenants_in_store + "/" + tenant_no ) font:agent_font color:#black size:displayTextSize at:{text_loc.x+5,text_loc.y+5+displayTextSize} perspective:true;
+			draw ("Fill: " + string(round(store_bin*100)/100)) + "/" + store_bin_clear_threshold color: #black font:agent_font size: displayTextSize at: {text_loc.x +5 ,text_loc.y +20} perspective:true;
+		}
+	}
+	aspect floor_4 {
+		if floor_no = 4{
+			draw square(store_size) color: #burlywood at:{location.x,location.y, location.z-1} ;
+			draw ("Store " + self.index + ": " + current_tenants_in_store + "/" + tenant_no ) font:agent_font color:#black size:displayTextSize at:{text_loc.x+5,text_loc.y+5+displayTextSize} perspective:true;
+			draw ("Fill: " + string(round(store_bin*100)/100)) + "/" + store_bin_clear_threshold color: #black font:agent_font size: displayTextSize at: {text_loc.x +5 ,text_loc.y +20} perspective:true;
+		}
 	}
 	
 
@@ -351,6 +904,9 @@ species store{
 		path path_to_bin;
 		int len_path_to_bin;
 		bool has_trash;
+		int floor_no <- host.floor_no;
+		int indice_selector <- floor_no-1;
+		list<bin> same_floor_bin_list;
 		
 		
 	    
@@ -377,10 +933,10 @@ species store{
 	    //	h1 > h2
 	    float base_rate <- 0.002704/60;
 	    float amp1 <- 0.017833/60;
-	    float center1 <- 690*60;
-	    float amp2 <- 0.012104/60;
-	    float center2 <- 870*60;
-	    float fixed_width <- 60*60;
+	    float center1 <- 690*60.0;
+	    float amp2 <- 0.012104/60.0;
+	    float center2 <- 870*60.0;
+	    float fixed_width <- 60*60.0;
 //	
 //	    
 //	    //	h1 = h2
@@ -445,7 +1001,12 @@ species store{
 	    
 	    // Find target bin if none is set and if the agent has trash
 	    action search_target {
-			ask bin closest_to(self) {
+	    	ask bin{
+	    		if self.floor_no = myself.floor_no{
+	    			myself.same_floor_bin_list <- myself.same_floor_bin_list + self;
+	    		}
+	    	}
+			ask self.same_floor_bin_list closest_to(self) {
 				    	// write "my target is: " + self + "i am:" + myself;
 			        	
 			            myself.target_bin <- self;
@@ -465,7 +1026,7 @@ species store{
 		        }
 	        //go back to store
 	        else{
-	           do goto (target: home_base, on: pedestrian_network);
+	           do goto (target: home_base, on: pedestrian_network_list at indice_selector);
 			}
 	    		
 	    		
@@ -491,7 +1052,7 @@ species store{
 		        }
 		    //walking to bin
 	        else{
-	            do goto (target: target_bin.location, on: pedestrian_network);
+	            do goto (target: target_bin.location, on: pedestrian_network_list at indice_selector);
 	//			  do goto (target: target_bin.location);
 	            
 	            
@@ -500,22 +1061,62 @@ species store{
 	    		
 	    }
 	    	
-	    
-	    aspect default {
-//			draw ("Trash on hand:") color:#black size:displayTextSize at:{location.x-5,location.y+displayTextSize*2} perspective:false; 
-			draw (string(round(trash_on_hand*100)/100)) color:#black size:displayTextSize at:{location.x-10,location.y+displayTextSize*4} perspective:false; 
-	    	
-	        
-	        draw triangle(6) color: color rotate: heading + 90.0 depth: 6;
-	        
-	        if (current_path != nil) {
-				draw current_path.shape color: #red;
+	   
+	    aspect floor_1 {
+			if floor_no = 1{
+				if has_trash{
+					draw (string("Trash on-hand: " + round(trash_on_hand*100)/100)) font:agent_font color:#black size:displayTextSize at:{location.x-10,location.y+displayTextSize*4} perspective:true; 
+		    	}
+		        
+		        draw triangle(6) color: color rotate: heading + 90.0 depth: 6;
+		        
+		        if (current_path != nil) {
+					draw current_path.shape color: #red;
+				}
 			}
-	       
-	    }
+		}
+		aspect floor_2 {
+			if floor_no = 2{
+				if has_trash{
+					draw (string("Trash on-hand: " + round(trash_on_hand*100)/100)) font:agent_font color:#black size:displayTextSize at:{location.x-10,location.y+displayTextSize*4} perspective:true; 
+		    	}
+		        
+		        draw triangle(6) color: color rotate: heading + 90.0 depth: 6;
+		        
+		        if (current_path != nil) {
+					draw current_path.shape color: #red;
+				}
+			}
+		}
+		aspect floor_3 {
+			if floor_no = 3{
+				if has_trash{
+					draw (string("Trash on-hand: " + round(trash_on_hand*100)/100)) font:agent_font color:#black size:displayTextSize at:{location.x-10,location.y+displayTextSize*4} perspective:true; 
+		    	}
+		        
+		        draw triangle(6) color: color rotate: heading + 90.0 depth: 6;
+		        
+		        if (current_path != nil) {
+					draw current_path.shape color: #red;
+				}
+			}
+		}
+		aspect floor_4 {
+			if floor_no = 4{
+				if has_trash{
+					draw (string("Trash on-hand: " + round(trash_on_hand*100)/100)) font:agent_font color:#black size:displayTextSize at:{location.x-10,location.y+displayTextSize*4} perspective:true; 
+		    	}
+		        
+		        draw triangle(6) color: color rotate: heading + 90.0 depth: 6;
+		        
+		        if (current_path != nil) {
+					draw current_path.shape color: #red;
+				}
+			}
+		}
 	}
 	
-	}
+}
 	
 
 	
@@ -536,6 +1137,9 @@ species cleaner skills:[pedestrian]{
 	list<bin> bins_to_clean_order;
 	list<point> route <- [resting_location];
 	list<float> distance;
+	float total_time_travelled; //in seconds
+	int current_floor_no <- 1;
+	int indice_selector <- current_floor_no-1;
 	
 	bool trigger <- false;
 	bool check <- true;
@@ -587,7 +1191,8 @@ species cleaner skills:[pedestrian]{
 	 	}
 	 	else if ((self.location distance_to resting_location) > 0.1){
 	 		
-			do goto (target:resting_location, on:pedestrian_network);
+			do goto (target:resting_location, on:indice_selector);
+			total_time_travelled <- total_time_travelled + 1;
 	 		
 	 	}
 
@@ -640,12 +1245,13 @@ species cleaner skills:[pedestrian]{
   
 	            
 	reflex clean_bins when: is_cleaning = true and return_to_rest = false and check = false{
-		
+		//
+		total_time_travelled <- total_time_travelled + 1;
         
         if (length(bins_to_clean_order) > 0 and location distance_to (bins_to_clean_order at 0) > 0.01){
         	bin_to_clean <- bins_to_clean_order at 0;
 //			write "Cleaning " + bin_to_clean + "now!";
-        	do goto (target:bin_to_clean, on:pedestrian_network);
+        	do goto (target:bin_to_clean, on:indice_selector);
         }
         
         // once first bin in the list has been reached
@@ -692,7 +1298,7 @@ species cleaner skills:[pedestrian]{
 			// write "central bin location is: "  + central_bin_location;
 				
         	if location distance_to central_bin_location > 0.1{
-					do goto (target:central_bin_location, on:pedestrian_network);
+					do goto (target:central_bin_location, on:indice_selector);
 			}
 			
 			// to let first reflex function run
@@ -707,36 +1313,34 @@ species cleaner skills:[pedestrian]{
         	else { write "BROKEN";}
         	
         }
+	}       
+	
+	
+    aspect floor_1 {
+		if current_floor_no = 1{
+			draw circle(6) color: is_cleaning ? #green : #gray depth: 6;
+       		draw string(trash_on_hand) color:#black size:(displayTextSize) font:agent_font at:{location.x,location.y+(displayTextSize)} perspective:false;
+		}
 	}
-	          
-	            
-	
-//	            
-//	reflex return_to_rest_process when: is_cleaning = false and return_to_rest = true{
-////		write "after dumpster now returning to rest";
-////		check <- true;
-//		if location distance_to resting_location > 0.01{
-//			do goto (target:resting_location, on:pedestrian_network);
-////			return_to_rest <- false;
-////			check <- true;
-//		}
-//				
-//		else{
-//			write "Cleaner has started rest.";
-//			return_to_rest <- false;
-//			check<- true;
-//		}
-//		
-//	}
-//	            
-	
-	
-	aspect default {
-		
-        draw circle(6) color: is_cleaning ? #green : #gray depth: 6;
-        draw ("Trash on hand: " + trash_on_hand) color:#black size:(displayTextSize) at:{location.x,location.y+(displayTextSize)} perspective:false;
-        
-    }
+	aspect floor_2 {
+		if current_floor_no = 2{
+			draw circle(6) color: is_cleaning ? #green : #gray depth: 6;
+        	draw string(trash_on_hand) color:#black size:(displayTextSize) font:agent_font at:{location.x,location.y+(displayTextSize)} perspective:false;
+		}
+	}
+	aspect floor_3 {
+		if current_floor_no = 3{
+			draw circle(6) color: is_cleaning ? #green : #gray depth: 6;
+        	draw string(trash_on_hand) color:#black size:(displayTextSize) font:agent_font at:{location.x,location.y+(displayTextSize)} perspective:false;
+		}
+	}
+	aspect floor_4 {
+		if current_floor_no = 4{
+			draw circle(6) color: is_cleaning ? #green : #gray depth: 6;
+        	draw string(trash_on_hand) color:#black size:(displayTextSize) font:agent_font at:{location.x,location.y+(displayTextSize)} perspective:false;
+		}
+	}
+    
 }
 
 
@@ -746,8 +1350,7 @@ species cleaner skills:[pedestrian]{
 
 experiment pedestrian_navigation type: gui {
     float minimum_cycle_duration <- 0.000001;
-	
-	parameter "Ready-to-clear Threshold" category:"Waste Bin Thresholds" var: ReadyToClear_multiplier min: 0.0  max: 1.0 step: 0.05;
+	parameter "Ready-to-clear Threshold" category:"Waste Bin Thresholds" var: ReadyToClear_multiplier min: 0.0  max: 1.0 step: 0.05 ;
 	parameter "About-to-be-full Threshold" category:"Waste Bin Thresholds" var: AboutToBeFull_multiplier min: 0.0  max: 1.0 step: 0.05;
 //	text string("Total number of complaints: ")  category: "Success Metrics" color: #white background: #black font: font("Helvetica",14,#bold); 
 //	parameter "Float (with on_change listener)" category:"Success Metrics" var: total_complaints {write ""+total_complaints;}
@@ -756,67 +1359,352 @@ experiment pedestrian_navigation type: gui {
     	
     output {
     	
-    	monitor "TOTAL COMPLAINTS" value: total_complaints refresh: every(step);
-    	monitor "ACUMULATED TIME OF BINS OVERFLOWED (MINS): " value: total_time_bin_overflowed/60 refresh: every(step);
+//    	monitor "TOTAL COMPLAINTS" value: total_complaints refresh: every(step);
+//    	monitor "ACUMULATED TIME OF BINS OVERFLOWED (MINS): " value: total_time_bin_overflowed/60 refresh: every(step);
 
         display vidacity_lvl_1 type: opengl {
         	
         	// Legend 
-             overlay position: { 5, 5 } size: { 300 #px, 210 #px } background: # black transparency: 0.5 border: #black rounded: true
+             overlay position: { 20, 20 } size: { 1200 #px, 220 #px } background: # gray transparency: 0 border: #black rounded: true
             {
                 float y <- 30#px;
                 
-                    draw "Legend" at: {20#px, y + 3#px } color: # black font: font("Helvetica", 28, #bold  #italic);
+                    draw "Legend" at: {20#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+                    draw "Failure Metrics" at: {285#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
                     y <- y + 30#px;
 					
 					// tenant
                     draw triangle(25#px) at: { 30#px, y } color: #red border: #white;
-                    draw "Tenant" at: { 60#px, y + 5#px } color: # black font: font("Helvetica", 25, #bold);
+                    draw "Tenant" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+                	draw ("TOTAL COMPLAINTS: " + total_complaints)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+                    
                     y <- y + 40#px;
                     
                     // Central bin
                     draw square(25#px) at: { 30#px, y } color: #cadetblue border: #white;
-                    draw "Central Bin" at: { 60#px, y + 5#px } color: # black font: font("Helvetica", 25, #bold);
+                    draw "Central Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+                	draw ("ACUMULATED TIME OF BINS OVERFLOWED (MINS): " + total_time_bin_overflowed/60)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+                    
                     y <- y + 40#px;
                     
                     // Floor's bin
                     draw square(25#px) at: { 30#px, y } color: #green border: #white;
-                    draw "Floor's Trash Bin" at: { 60#px, y + 5#px } color: # black font: font("Helvetica", 25, #bold);
+                    draw "Floor's Trash Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+                    ask cleaner{                	
+                    	draw ("CLEANER DISTANCE TRAVELLED: " + (self.total_time_travelled/3600*self.speed*1000) + "m")  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+                    }
+                    
                     y <- y + 40#px;
                     
                     // Cleaner
                     draw circle(12.5#px) at: { 30#px, y } color: #gray border: #white;
-                    draw "Cleaner" at: { 60#px, y + 5#px } color: # black font: font("Helvetica", 25, #bold);
+                    draw "Cleaner" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
                     y <- y + 40#px;
 
             }
-        	
-
-            species pedestrian_path transparency: 0.5;
-            species bin aspect: default;
             
-            species cleaner aspect: default;
+
+            
+        	
+    		species pedestrian_path aspect:floor_1 transparency: 0.5;
+            	
+            species bin aspect: floor_1;
+            
+            species cleaner aspect: floor_1;
             species central_bin aspect: default;
             
-            species store aspect: default {
-            	species people aspect: default;
-            	
-            	}
-            species obstacle transparency: 0.80;
-            	
-            species store_floor aspect: default transparency: 0.8;
-            species vida_lvl_1 transparency: 0.88;
+
+            species obstacle aspect: floor_1 transparency: 0.80;
             
-//            overlay position: { 10, 10 } size: { 360 #px, 180 #px } background: # black transparency: 0.5 border: #black rounded: true
+            species store aspect: floor_1 {
+				species people aspect: floor_1;
+	
+			}
+            	
+            species store_floor aspect: floor_1 transparency: 0.8;
+            species vida_lvl_layout_1 transparency: 0.88;
+            
+            }
+            
+//             display vidacity_lvl_2 type: opengl {
+//        	
+//        	// Legend 
+//             overlay position: { 20, 20 } size: { 1200 #px, 220 #px } background: # gray transparency: 0 border: #black rounded: true
 //            {
+//                float y <- 30#px;
 //                
-//                    draw string("Total Complaints: " + total_complaints) size: 500000  at: { 40#px, 60#px } color: #black;
+//                    draw "Legend" at: {20#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    draw "Failure Metrics" at: {285#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    y <- y + 30#px;
+//					
+//					// tenant
+//                    draw triangle(25#px) at: { 30#px, y } color: #red border: #white;
+//                    draw "Tenant" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("TOTAL COMPLAINTS: " + total_complaints)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
 //                    
-//
-//                
+//                    y <- y + 40#px;
+//                    
+//                    // Central bin
+//                    draw square(25#px) at: { 30#px, y } color: #cadetblue border: #white;
+//                    draw "Central Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("ACUMULATED TIME OF BINS OVERFLOWED (MINS): " + total_time_bin_overflowed/60)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Floor's bin
+//                    draw square(25#px) at: { 30#px, y } color: #green border: #white;
+//                    draw "Floor's Trash Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    ask cleaner{                	
+//                    	draw ("CLEANER DISTANCE TRAVELLED: " + (self.total_time_travelled/3600*self.speed*1000) + "m")  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    }
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Cleaner
+//                    draw circle(12.5#px) at: { 30#px, y } color: #gray border: #white;
+//                    draw "Cleaner" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    y <- y + 40#px;
 //
 //            }
-            }
+//            
+//
+//            
+//        	
+//    		species pedestrian_path aspect:floor_2 transparency: 0.5;
+//            	
+//            species bin aspect: floor_2;
+//            
+////            species cleaner aspect: floor_2;
+////            species central_bin aspect: default;
+//            
+//
+//            species obstacle aspect: floor_2 transparency: 0.80;
+//            
+//            species store aspect: floor_2 {
+//				species people aspect: floor_2;
+//	
+//			}
+//            	
+//            species store_floor aspect: floor_2 transparency: 0.8;
+//            species vida_lvl_layout_2 transparency: 0.88;
+//            
+//            }
+//            
+//             display vidacity_lvl_3 type: opengl {
+//        	
+//        	// Legend 
+//             overlay position: { 20, 20 } size: { 1200 #px, 220 #px } background: # gray transparency: 0 border: #black rounded: true
+//            {
+//                float y <- 30#px;
+//                
+//                    draw "Legend" at: {20#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    draw "Failure Metrics" at: {285#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    y <- y + 30#px;
+//					
+//					// tenant
+//                    draw triangle(25#px) at: { 30#px, y } color: #red border: #white;
+//                    draw "Tenant" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("TOTAL COMPLAINTS: " + total_complaints)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Central bin
+//                    draw square(25#px) at: { 30#px, y } color: #cadetblue border: #white;
+//                    draw "Central Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("ACUMULATED TIME OF BINS OVERFLOWED (MINS): " + total_time_bin_overflowed/60)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Floor's bin
+//                    draw square(25#px) at: { 30#px, y } color: #green border: #white;
+//                    draw "Floor's Trash Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    ask cleaner{                	
+//                    	draw ("CLEANER DISTANCE TRAVELLED: " + (self.total_time_travelled/3600*self.speed*1000) + "m")  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    }
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Cleaner
+//                    draw circle(12.5#px) at: { 30#px, y } color: #gray border: #white;
+//                    draw "Cleaner" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    y <- y + 40#px;
+//
+//            }
+//            
+//
+//            
+//        	
+//    		species pedestrian_path aspect:floor_3 transparency: 0.5;
+//            	
+//            species bin aspect: floor_3;
+//            
+////            species cleaner aspect: floor_3;
+////            species central_bin aspect: default;
+//            
+//
+//            species obstacle aspect: floor_3 transparency: 0.80;
+//            
+//            species store aspect: floor_3 {
+//				species people aspect: floor_3;
+//	
+//			}
+//            	
+//            species store_floor aspect: floor_3 transparency: 0.8;
+//            species vida_lvl_layout_3 transparency: 0.88;
+//            
+//            }
+//            
+//            display vidacity_lvl_4 type: opengl {
+//        	
+//        	// Legend 
+//             overlay position: { 20, 20 } size: { 1200 #px, 220 #px } background: # gray transparency: 0 border: #black rounded: true
+//            {
+//                float y <- 30#px;
+//                
+//                    draw "Legend" at: {20#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    draw "Failure Metrics" at: {285#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    y <- y + 30#px;
+//					
+//					// tenant
+//                    draw triangle(25#px) at: { 30#px, y } color: #red border: #white;
+//                    draw "Tenant" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("TOTAL COMPLAINTS: " + total_complaints)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Central bin
+//                    draw square(25#px) at: { 30#px, y } color: #cadetblue border: #white;
+//                    draw "Central Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("ACUMULATED TIME OF BINS OVERFLOWED (MINS): " + total_time_bin_overflowed/60)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Floor's bin
+//                    draw square(25#px) at: { 30#px, y } color: #green border: #white;
+//                    draw "Floor's Trash Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    ask cleaner{                	
+//                    	draw ("CLEANER DISTANCE TRAVELLED: " + (self.total_time_travelled/3600*self.speed*1000) + "m")  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    }
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Cleaner
+//                    draw circle(12.5#px) at: { 30#px, y } color: #gray border: #white;
+//                    draw "Cleaner" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    y <- y + 40#px;
+//
+//            }
+//            
+//
+//            
+//        	
+//    		species pedestrian_path aspect:floor_4 transparency: 0.5;
+//            	
+//            species bin aspect: floor_4;
+//            
+////            species cleaner aspect: floor_4;
+////            species central_bin aspect: default;
+//            
+//
+//            species obstacle aspect: floor_4 transparency: 0.80;
+//            
+//            species store aspect: floor_4 {
+//				species people aspect: floor_4;
+//	
+//			}
+//            	
+//            species store_floor aspect: floor_4 transparency: 0.8;
+//            species vida_lvl_layout_4 transparency: 0.88;
+//            
+//            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+//             display vidacity_lvl_2 type: opengl {
+//        	
+//        	// Legend 
+//             overlay position: { 20, 20 } size: { 1200 #px, 220 #px } background: # gray transparency: 0 border: #black rounded: true
+//            {
+//                float y <- 30#px;
+//                
+//                    draw "Legend" at: {20#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    draw "Failure Metrics" at: {280#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    y <- y + 30#px;
+//					
+//					// tenant
+//                    draw triangle(25#px) at: { 30#px, y } color: #red border: #white;
+//                    draw "Tenant" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("TOTAL COMPLAINTS: " + total_complaints)  at: { 280#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Central bin
+//                    draw square(25#px) at: { 30#px, y } color: #cadetblue border: #white;
+//                    draw "Central Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("ACUMULATED TIME OF BINS OVERFLOWED (MINS): " + total_time_bin_overflowed/60)  at: { 280#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Floor's bin
+//                    draw square(25#px) at: { 30#px, y } color: #green border: #white;
+//                    draw "Floor's Trash Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    ask cleaner{                	
+//                    	draw ("CLEANER DISTANCE TRAVELLED: " + (self.total_time_travelled/3600*self.speed*1000) + "m")  at: { 280#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    }
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Cleaner
+//                    draw circle(12.5#px) at: { 30#px, y } color: #gray border: #white;
+//                    draw "Cleaner" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    y <- y + 40#px;
+//
+//            }
+//            
+//            
+//        	
+//
+//            species pedestrian_path transparency: 0.5;
+//            species bin aspect: default;
+//            
+//            species cleaner aspect: default;
+//            species central_bin aspect: default;
+//            
+//
+//            species obstacle transparency: 0.80;
+//            
+//            species store aspect: default {
+//				species people aspect: default;
+//	
+//			}
+//            	
+//            species store_floor aspect: default transparency: 0.8;
+//            species vida_lvl_1 transparency: 0.88;
+//            
+//            }
 
 //        display "Event Log" type: 2d{
 //			chart "Trash Generation Event Log Over 24-hours" type: histogram x_label:"Time (minutes)" y_label:"Volume of Trash (Litres)" {
