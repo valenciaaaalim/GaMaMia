@@ -67,23 +67,23 @@ global {
 
 	// For 9 stores on level 1:
 	
-	int lvl1_store_0_no_tenants <- 5 parameter:true category:"Level 1";
+	int lvl1_store_0_no_tenants <- 25 parameter:true category:"Level 1";
 
-	int lvl1_store_1_no_tenants <- 2 parameter:true category:"Level 1"; // current issue is it doesnt create agents specific to each store initialised
+	int lvl1_store_1_no_tenants <- 25 parameter:true category:"Level 1"; // current issue is it doesnt create agents specific to each store initialised
 
-	int lvl1_store_2_no_tenants <- 2 parameter:true category:"Level 1";
+	int lvl1_store_2_no_tenants <- 25 parameter:true category:"Level 1";
 	
-	int lvl1_store_3_no_tenants <- 1 parameter:true category:"Level 1";
+	int lvl1_store_3_no_tenants <- 25 parameter:true category:"Level 1";
 
-	int lvl1_store_4_no_tenants <- 5 parameter:true category:"Level 1";
+	int lvl1_store_4_no_tenants <- 25 parameter:true category:"Level 1";
 
-	int lvl1_store_5_no_tenants <- 5 parameter:true category:"Level 1";
+	int lvl1_store_5_no_tenants <- 25 parameter:true category:"Level 1";
 
-	int lvl1_store_6_no_tenants <- 5 parameter:true category:"Level 1";
+	int lvl1_store_6_no_tenants <- 25 parameter:true category:"Level 1";
 
-	int lvl1_store_7_no_tenants <- 5 parameter:true category:"Level 1";
+	int lvl1_store_7_no_tenants <- 25 parameter:true category:"Level 1";
 	
-	int lvl1_store_8_no_tenants <- 5 parameter:true category:"Level 1";
+	int lvl1_store_8_no_tenants <- 25 parameter:true category:"Level 1";
 	
 	list no_of_tenants_per_store_lvl1 <- [
 		lvl1_store_0_no_tenants,
@@ -142,31 +142,31 @@ global {
 
 	// For 13 stores on level 2:
 	
-	int lvl2_store_9_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_9_no_tenants <- 25 parameter:true category:"Level 2";
 
-	int lvl2_store_10_no_tenants <- 5 parameter:true category:"Level 2"; // current issue is it doesnt create agents specific to each store initialised
+	int lvl2_store_10_no_tenants <- 25 parameter:true category:"Level 2"; // current issue is it doesnt create agents specific to each store initialised
 
-	int lvl2_store_11_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_11_no_tenants <- 25 parameter:true category:"Level 2";
 	
-	int lvl2_store_12_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_12_no_tenants <- 25 parameter:true category:"Level 2";
 	
-	int lvl2_store_13_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_13_no_tenants <- 25 parameter:true category:"Level 2";
 
-	int lvl2_store_14_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_14_no_tenants <- 25 parameter:true category:"Level 2";
 
-	int lvl2_store_15_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_15_no_tenants <- 25 parameter:true category:"Level 2";
 
-	int lvl2_store_16_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_16_no_tenants <- 25 parameter:true category:"Level 2";
 	
-	int lvl2_store_17_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_17_no_tenants <- 25 parameter:true category:"Level 2";
 	
-	int lvl2_store_18_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_18_no_tenants <- 25 parameter:true category:"Level 2";
 	
-	int lvl2_store_19_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_19_no_tenants <- 25 parameter:true category:"Level 2";
 	
-	int lvl2_store_20_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_20_no_tenants <- 25 parameter:true category:"Level 2";
 	
-	int lvl2_store_21_no_tenants <- 5 parameter:true category:"Level 2";
+	int lvl2_store_21_no_tenants <- 25 parameter:true category:"Level 2";
 	
 	
 	
@@ -230,19 +230,19 @@ global {
 
 	// For 7 stores on level 2:
 	
-	int lvl3_store_22_no_tenants <- 5 parameter:true category:"Level 3";
+	int lvl3_store_22_no_tenants <- 25 parameter:true category:"Level 3";
 
-	int lvl3_store_23_no_tenants <- 5 parameter:true category:"Level 3"; // current issue is it doesnt create agents specific to each store initialised
+	int lvl3_store_23_no_tenants <- 25 parameter:true category:"Level 3"; // current issue is it doesnt create agents specific to each store initialised
 
-	int lvl3_store_24_no_tenants <- 5 parameter:true category:"Level 3";
+	int lvl3_store_24_no_tenants <- 25 parameter:true category:"Level 3";
 	
-	int lvl3_store_25_no_tenants <- 5 parameter:true category:"Level 3";
+	int lvl3_store_25_no_tenants <- 25 parameter:true category:"Level 3";
 	
-	int lvl3_store_26_no_tenants <- 5 parameter:true category:"Level 3";
+	int lvl3_store_26_no_tenants <- 25 parameter:true category:"Level 3";
 
-	int lvl3_store_27_no_tenants <- 5 parameter:true category:"Level 3";
+	int lvl3_store_27_no_tenants <- 25 parameter:true category:"Level 3";
 
-	int lvl3_store_28_no_tenants <- 5 parameter:true category:"Level 3";
+	int lvl3_store_28_no_tenants <- 25 parameter:true category:"Level 3";
 
 
 	
@@ -295,13 +295,13 @@ global {
 
 	// For 4 stores on level 2:
 	
-	int lvl2_store_29_no_tenants <- 5 parameter:true category:"Level 4";
+	int lvl2_store_29_no_tenants <- 25 parameter:true category:"Level 4";
 
-	int lvl2_store_30_no_tenants <- 5 parameter:true category:"Level 4"; // current issue is it doesnt create agents specific to each store initialised
+	int lvl2_store_30_no_tenants <- 25 parameter:true category:"Level 4"; // current issue is it doesnt create agents specific to each store initialised
 
-	int lvl2_store_31_no_tenants <- 5 parameter:true category:"Level 4";
+	int lvl2_store_31_no_tenants <- 25 parameter:true category:"Level 4";
 	
-	int lvl2_store_32_no_tenants <- 5 parameter:true category:"Level 4";
+	int lvl2_store_32_no_tenants <- 25 parameter:true category:"Level 4";
 	
 	
 	list no_of_tenants_per_store_lvl4 <- [
@@ -868,22 +868,22 @@ species stairs {
 
 	aspect floor_1 {
 		if floor_no = 1{
-			draw circle(6) color: #black depth: 10;
+			draw circle(2) color: #black depth: 10;
 		}
 	}
 	aspect floor_2 {
 		if floor_no = 2{
-			draw circle(6) color: #black depth: 10;
+			draw circle(2) color: #black depth: 10;
 		}
 	}
 	aspect floor_3 {
 		if floor_no = 3{
-			draw circle(6) color: #black depth: 10;
+			draw circle(2) color: #black depth: 10;
 		}
 	}
 	aspect floor_4 {
 		if floor_no = 4{
-			draw circle(6) color: #black depth: 10;
+			draw circle(2) color: #black depth: 10;
 		}
 	}
 }
@@ -1677,17 +1677,28 @@ species cleaner skills:[pedestrian]{
 	 			
 	 			if current_target != nil  and self distance_to current_target > 0.1{
 	 				
+	 				write "moving to stairs of index: " + current_target;
+	 				
 	 				do goto (target:current_target, on:pedestrian_network_list at (self.current_floor_no-1));
+//	 				do goto (target:current_target);
+	 				
 					total_time_travelled <- total_time_travelled + 1;
 	 				
 	 			}
+	 			
+//	 			else {
 	 			else if current_target != nil  and self distance_to current_target <= 0.1{
+	 				
+	 				write "moving on the stairs!";
+
 	 				// teleport to floor of current_bin
 	 				self.location <- {location.x, location.y, ((bin_to_clean.floor_no-1)*floor_loc_multiplier)};
 	 				self.current_floor_no <- bin_to_clean.floor_no;
 	 				// reset stairs target
 	 				self.current_target <- nil;
 	 			}
+	 			
+	 			
 
 			
 			}
