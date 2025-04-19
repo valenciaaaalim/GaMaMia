@@ -1464,7 +1464,6 @@ species cleaner skills:[pedestrian]{
 	list<float> distance;
 	float total_time_travelled; //in seconds
 	int current_floor_no <- 1;
-	int indice_selector <- current_floor_no-1;
 	list<agent> current_floor_stairs_list;
 	agent current_stairwell;
 	
@@ -1506,6 +1505,7 @@ species cleaner skills:[pedestrian]{
 				//find the respective stairwell and check if the stairs can bring the cleaner to bin_to_clean.floor_no
 
 				ask stairwell{
+					
 					if self.stairwell_stairs contains stairs_object.index and length(self.stairwell_stairs) >= myself.bin_to_clean.floor_no{
 						myself.current_target <- stairs_object.location;
 						
@@ -1513,7 +1513,7 @@ species cleaner skills:[pedestrian]{
 					
 				}
 				
-				if current_target != nil{
+				if self.current_target != nil{
 					break; // breaks out of the stairs in current_floor_stairs_list loop
 				}
 				
@@ -1572,7 +1572,7 @@ species cleaner skills:[pedestrian]{
 	 		else if(current_floor_no != 1 and current_target != nil) { // walk to nearest staircase of current floor, all stair wells go to lvl 1
 	 			
 	 			if self distance_to current_target > 0.1{
-	 				do goto (target:current_target, on:pedestrian_network_list at indice_selector);
+	 				do goto (target:current_target, on:pedestrian_network_list at (current_floor_no-1));
 					total_time_travelled <- total_time_travelled + 1;
 	 				
 	 			}
@@ -1587,7 +1587,7 @@ species cleaner skills:[pedestrian]{
 	 		}
 	 		else{
 	 			// if on floor 1
-				do goto (target:resting_location, on:pedestrian_network_list at indice_selector);
+				do goto (target:resting_location, on:pedestrian_network_list at (current_floor_no-1));
 				total_time_travelled <- total_time_travelled + 1;
 			
 			}
@@ -1664,8 +1664,6 @@ species cleaner skills:[pedestrian]{
         	bin_to_clean <- bins_to_clean_order at 0;
 //			write "Cleaning " + bin_to_clean + "now!";    
 
-////////////////////////////////////////
-
 
 			// if bin_to_clean is not on the same floor as the cleaner,
 			if bin_to_clean.floor_no != self.current_floor_no{
@@ -1679,36 +1677,27 @@ species cleaner skills:[pedestrian]{
 	 			
 	 			if current_target != nil  and self distance_to current_target > 0.1{
 	 				
-	 				do goto (target:current_target, on:pedestrian_network_list at indice_selector);
+	 				do goto (target:current_target, on:pedestrian_network_list at (self.current_floor_no-1));
 					total_time_travelled <- total_time_travelled + 1;
 	 				
 	 			}
-	 			
-	 			
-	 			
-	 			
-	 			
-	 		
-//	 			else if(current_floor_no != 1 and current_target != nil) { // walk to nearest staircase of current floor, all stair wells go to lvl 1
-//	 			
-//	 				if self distance_to current_target > 0.1{
-//		 				do goto (target:current_target, on:pedestrian_network_list at indice_selector);
-//						total_time_travelled <- total_time_travelled + 1;
-//	 				
-//	 				}
-//				
-//				}
-			
-			
+	 			else if current_target != nil  and self distance_to current_target <= 0.1{
+	 				// teleport to floor of current_bin
+	 				self.location <- {location.x, location.y, ((bin_to_clean.floor_no-1)*floor_loc_multiplier)};
+	 				self.current_floor_no <- bin_to_clean.floor_no;
+	 				// reset stairs target
+	 				self.current_target <- nil;
+	 			}
+
 			
 			}
 			
-			// once cleaner is on the same floor as the target_bin
-        	do goto (target:bin_to_clean, on:pedestrian_network_list at indice_selector);
+			// once cleaner is on the same floor as the target_bin, go to the bin
+        	do goto (target:bin_to_clean, on:pedestrian_network_list at (self.current_floor_no-1));
         	total_time_travelled <- total_time_travelled + 1;
         }
         
-        ////////////////////////////////////////////////////
+
         
         // once first bin in the list has been reached
         else if (length(bins_to_clean_order) > 0){
@@ -1723,8 +1712,9 @@ species cleaner skills:[pedestrian]{
 				remove item: bin_to_clean from: BinsAboutToBeFull;
 			
 			}
-			remove item: bin_to_clean.location from: route;
+//			remove item: bin_to_clean.location from: route;
         	remove item: bin_to_clean from:bins_to_clean_order;
+        	bin_to_clean <- nil;
         	
         	if (length(bins_to_clean_order) > 0){
 	        	ask bin {
@@ -1739,9 +1729,40 @@ species cleaner skills:[pedestrian]{
 			
 			// set bin_to_clean to nil after cleaning cycle
 			bin_to_clean <- nil;
+			
+			
+			
+			// if central bin is not on the same floor as the cleaner,
+			if  self.current_floor_no != 1{
 				
+				// if the cleaner does not know which stairs to go to
+				if current_target = nil{
+	 				do find_nearest_available_staircase;
+	 			}
+	 			
+	 			// if current_target (stairs) is true:
+	 			
+	 			if current_target != nil  and self distance_to current_target > 0.1{
+	 				
+	 				do goto (target:current_target, on:pedestrian_network_list at (self.current_floor_no-1));
+					total_time_travelled <- total_time_travelled + 1;
+	 				
+	 			}
+	 			else if current_target != nil  and self distance_to current_target <= 0.1{
+	 				// teleport to floor of central_bin
+	 				self.location <- {location.x, location.y, 0};
+	 				self.current_floor_no <- 1;
+	 				// reset stairs target
+	 				self.current_target <- nil;
+	 			}
+
+			
+			}
+			
+			
+			// once cleaner is on the same floor at the central bin,
         	if location distance_to central_bin_location > 0.1{
-					do goto (target:central_bin_location, on:pedestrian_network_list at indice_selector);
+					do goto (target:central_bin_location, on:pedestrian_network_list at (self.current_floor_no-1));
 					total_time_travelled <- total_time_travelled + 1;
 			}
 			
@@ -1862,74 +1883,74 @@ experiment pedestrian_navigation type: gui {
 				species people aspect: floor_1;
 	
 			  }
-//            
-//            species stairs aspect: floor_1;
-//            species store_floor aspect: floor_1 transparency: 0.8;
-//            species vida_lvl_layout_1 transparency: 0.6;
-//            
-//            
-//            
-//            // floor 2
-//            
-//            species pedestrian_path aspect:floor_2 transparency: 0.5;
-//            	
-//            species bin aspect: floor_2;
-//           
-//            
-//
-//            species obstacle aspect: floor_2 transparency: 0.80;
-//            
-//            species store aspect: floor_2 {
-//				species people aspect: floor_2;
-//	
-//			  }
-//            
-//            species stairs aspect: floor_2;
-//            
-//            species store_floor aspect: floor_2 transparency: 0.8;
-//            species vida_lvl_layout_2 transparency: 0.6;
-//            
-//            
-//            //floor 3
-//            
-//            species pedestrian_path aspect:floor_3 transparency: 0.5;
-//            	
-//            species bin aspect: floor_3;
-//           
-//            
-//
-//            species obstacle aspect: floor_3 transparency: 0.80;
-//            
-//            species store aspect: floor_3 {
-//				species people aspect: floor_3;
-//	
-//			  }
-//            
-//            species stairs aspect: floor_3;
-//            
-//            species store_floor aspect: floor_3 transparency: 0.8;
-//            species vida_lvl_layout_3 transparency: 0.6;
-//            
-//            
+            
+            species stairs aspect: floor_1;
+            species store_floor aspect: floor_1 transparency: 0.8;
+            species vida_lvl_layout_1 transparency: 0.6;
+            
+            
+            
+            // floor 2
+            
+            species pedestrian_path aspect:floor_2 transparency: 0.5;
+            	
+            species bin aspect: floor_2;
+           
+            
+
+            species obstacle aspect: floor_2 transparency: 0.80;
+            
+            species store aspect: floor_2 {
+				species people aspect: floor_2;
+	
+			  }
+            
+            species stairs aspect: floor_2;
+            
+            species store_floor aspect: floor_2 transparency: 0.8;
+            species vida_lvl_layout_2 transparency: 0.6;
+            
+            
+            //floor 3
+            
+            species pedestrian_path aspect:floor_3 transparency: 0.5;
+            	
+            species bin aspect: floor_3;
+           
+            
+
+            species obstacle aspect: floor_3 transparency: 0.80;
+            
+            species store aspect: floor_3 {
+				species people aspect: floor_3;
+	
+			  }
+            
+            species stairs aspect: floor_3;
+            
+            species store_floor aspect: floor_3 transparency: 0.8;
+            species vida_lvl_layout_3 transparency: 0.6;
+            
+            
             //floor 4
             
-//            species pedestrian_path aspect:floor_4 transparency: 0.5;
-//            	
-//            species bin aspect: floor_4;
-//           
-//            
-//
-//            species obstacle aspect: floor_4 transparency: 0.80;
-//            
-//            species store aspect: floor_4 {
-//				species people aspect: floor_4;
-//	
-//			}
-//            
-//            species stairs aspect: floor_4;
-//            
-//            species store_floor aspect: floor_4 transparency: 0.8;
-//            species vida_lvl_layout_4 transparency: 0.6;
+            species pedestrian_path aspect:floor_4 transparency: 0.5;
+            	
+            species bin aspect: floor_4;
+           
+            
+
+            species obstacle aspect: floor_4 transparency: 0.80;
+            
+            species store aspect: floor_4 {
+				species people aspect: floor_4;
+	
+			}
+            
+            species stairs aspect: floor_4;
+            
+            species store_floor aspect: floor_4 transparency: 0.8;
+            species vida_lvl_layout_4 transparency: 0.6;
             
             
             
