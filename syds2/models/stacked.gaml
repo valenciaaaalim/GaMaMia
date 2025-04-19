@@ -1480,6 +1480,7 @@ species cleaner skills:[pedestrian]{
 	// return to rest : false, false, true
 	// actually rest: false, false, true
 	
+	
 	action find_nearest_available_staircase{
 		
 		current_floor_stairs_list <- [];
@@ -1664,6 +1665,8 @@ species cleaner skills:[pedestrian]{
 //			write "Cleaning " + bin_to_clean + "now!";    
 
 ////////////////////////////////////////
+
+
 			// if bin_to_clean is not on the same floor as the cleaner,
 			if bin_to_clean.floor_no != self.current_floor_no{
 				
@@ -1674,20 +1677,33 @@ species cleaner skills:[pedestrian]{
 	 			
 	 			// if current_target (stairs) is true:
 	 			
-	 		
-	 			else if(current_floor_no != 1 and current_target != nil) { // walk to nearest staircase of current floor, all stair wells go to lvl 1
-	 			
-	 				if self distance_to current_target > 0.1{
-		 				do goto (target:current_target, on:pedestrian_network_list at indice_selector);
-						total_time_travelled <- total_time_travelled + 1;
+	 			if current_target != nil  and self distance_to current_target > 0.1{
 	 				
-	 				}
-				
-				}
+	 				do goto (target:current_target, on:pedestrian_network_list at indice_selector);
+					total_time_travelled <- total_time_travelled + 1;
+	 				
+	 			}
+	 			
+	 			
+	 			
+	 			
+	 			
+	 		
+//	 			else if(current_floor_no != 1 and current_target != nil) { // walk to nearest staircase of current floor, all stair wells go to lvl 1
+//	 			
+//	 				if self distance_to current_target > 0.1{
+//		 				do goto (target:current_target, on:pedestrian_network_list at indice_selector);
+//						total_time_travelled <- total_time_travelled + 1;
+//	 				
+//	 				}
+//				
+//				}
+			
+			
 			
 			}
 			
-			
+			// once cleaner is on the same floor as the target_bin
         	do goto (target:bin_to_clean, on:pedestrian_network_list at indice_selector);
         	total_time_travelled <- total_time_travelled + 1;
         }
