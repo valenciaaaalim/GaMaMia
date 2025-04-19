@@ -729,12 +729,42 @@ global {
 //////////////////////////////////////////// LEVEL 4 //////////////////////////////////////////
 
  		
- 		list stairwell_1 <- [0, 6, 11, 15];
- 		list stairwell_2 <- [2,8,13,16];
- 		list stairwell_3 <- [1,7,12]; 
-		list stairwell_4 <- [4,9];
-		list stairwell_5 <- [5,10]; 		
  		
+ 		
+ 		create stairwell{
+ 			stairwell_stairs <- [0, 6, 11, 15];
+ 		}
+ 		
+ 		create stairwell{
+ 			stairwell_stairs <- [2,8,13,16];
+ 		}
+ 		
+ 		create stairwell{
+ 			stairwell_stairs <- [1,7,12];
+ 		}
+ 		
+ 		create stairwell{
+ 			stairwell_stairs <- [4,9];
+ 		}
+ 		
+ 		create stairwell{
+ 			stairwell_stairs <- [5,10];
+ 		}
+ 		
+// 		list stairwell_1 <- [0, 6, 11, 15];
+// 		list stairwell_2 <- [2,8,13,16];
+// 		list stairwell_3 <- [1,7,12]; 
+//		list stairwell_4 <- [4,9];
+//		list stairwell_5 <- [5,10]; 
+//		
+//		list stairwells <-[];
+//		add stairwell_1 to:stairwells;
+//		add stairwell_2 to:stairwells;
+//		add stairwell_3 to:stairwells;
+//		add stairwell_4 to:stairwells;
+//		add stairwell_5 to:stairwells;
+ 		
+// 		write "STAIRWELLS " + stairwells;
  		
     } // init close bracket
     
@@ -857,6 +887,10 @@ species stairs {
 		}
 	}
 }
+
+species stairwell {
+	list stairwell_stairs;
+	}
 
 species store_floor {
 	int floor_no;
@@ -1432,6 +1466,7 @@ species cleaner skills:[pedestrian]{
 	int current_floor_no <- 1;
 	int indice_selector <- current_floor_no-1;
 	list<agent> current_floor_stairs_list;
+	agent current_stairwell;
 	
 	bool trigger <- false;
 	bool check <- true;
@@ -1454,10 +1489,40 @@ species cleaner skills:[pedestrian]{
 				add self to:myself.current_floor_stairs_list;
 			}
 		}
+				
 		
-		// go to nearest stairwell
 		current_floor_stairs_list <- current_floor_stairs_list sort_by (each distance_to self); // sort from shortest distance to self
+		// set current_target to nearest stairwell when returning to rest (all stairs go to lvl 1)
 		current_target <- (current_floor_stairs_list at 0).location;
+		
+		// if finding nearest stairwell during cleaning
+		if bin_to_clean != nil{
+			current_target <- nil;
+			
+			// for each stairs_object (closest first)  on the cleaner's current floor
+			loop stairs_object over:current_floor_stairs_list {
+				// obj referenced in loop: stairs (self)
+				//find the respective stairwell and check if the stairs can bring the cleaner to bin_to_clean.floor_no
+
+				ask stairwell{
+					if self.stairwell_stairs contains stairs_object.index and length(self.stairwell_stairs) >= myself.bin_to_clean.floor_no{
+						myself.current_target <- stairs_object.location;
+						
+					}
+					
+				}
+				
+				if current_target != nil{
+					break; // breaks out of the stairs in current_floor_stairs_list loop
+				}
+				
+				//else continue looping through stairs on current floor, that can bring cleaner to the current_bin's floor
+
+				
+			}
+			
+		}
+		
 		
 	}
  
@@ -1511,6 +1576,7 @@ species cleaner skills:[pedestrian]{
 	 				
 	 			}
 	 			
+	 			//cleaner reached stairs, teleport to floor 1.
 	 			else{
 	 				// teleport to floor 1
 	 				self.location <- {location.x, location.y, 0};
@@ -1548,7 +1614,7 @@ species cleaner skills:[pedestrian]{
 			
 			bins_to_clean_order <- reverse(readyBins sort_by (each.floor_no));
 			
-			// if bins are on the same floor, sort by distance from self reversed
+			// if bins are on the same floor, sort by distance from self; reversed
 			if (bins_to_clean_order at 0).floor_no = (bins_to_clean_order at 1).floor_no{
 				bins_to_clean_order <- reverse(bins_to_clean_order sort_by (each distance_to self));
 			}
@@ -1588,7 +1654,6 @@ species cleaner skills:[pedestrian]{
 		}
 	}      
 
-	//////////////////////////////END HERE
   
 	            
 	reflex clean_bins when: is_cleaning = true and return_to_rest = false and check = false{
@@ -1596,10 +1661,38 @@ species cleaner skills:[pedestrian]{
         
         if (length(bins_to_clean_order) > 0 and location distance_to (bins_to_clean_order at 0) > 0.01){
         	bin_to_clean <- bins_to_clean_order at 0;
-//			write "Cleaning " + bin_to_clean + "now!";
+//			write "Cleaning " + bin_to_clean + "now!";    
+
+////////////////////////////////////////
+			// if bin_to_clean is not on the same floor as the cleaner,
+			if bin_to_clean.floor_no != self.current_floor_no{
+				
+				// if the cleaner does not know which stairs to go to
+				if current_target = nil{
+	 				do find_nearest_available_staircase;
+	 			}
+	 			
+	 			// if current_target (stairs) is true:
+	 			
+	 		
+	 			else if(current_floor_no != 1 and current_target != nil) { // walk to nearest staircase of current floor, all stair wells go to lvl 1
+	 			
+	 				if self distance_to current_target > 0.1{
+		 				do goto (target:current_target, on:pedestrian_network_list at indice_selector);
+						total_time_travelled <- total_time_travelled + 1;
+	 				
+	 				}
+				
+				}
+			
+			}
+			
+			
         	do goto (target:bin_to_clean, on:pedestrian_network_list at indice_selector);
         	total_time_travelled <- total_time_travelled + 1;
         }
+        
+        ////////////////////////////////////////////////////
         
         // once first bin in the list has been reached
         else if (length(bins_to_clean_order) > 0){
@@ -1627,7 +1720,9 @@ species cleaner skills:[pedestrian]{
         
         //once done with the last bin
         else{
-
+			
+			// set bin_to_clean to nil after cleaning cycle
+			bin_to_clean <- nil;
 				
         	if location distance_to central_bin_location > 0.1{
 					do goto (target:central_bin_location, on:pedestrian_network_list at indice_selector);
