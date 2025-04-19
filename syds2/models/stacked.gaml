@@ -67,23 +67,23 @@ global {
 
 	// For 9 stores on level 1:
 	
-	int lvl1_store_0_no_tenants <- 25 parameter:true category:"Level 1";
+	int lvl1_store_0_no_tenants <- 50 parameter:true category:"Level 1";
 
-	int lvl1_store_1_no_tenants <- 25 parameter:true category:"Level 1"; // current issue is it doesnt create agents specific to each store initialised
+	int lvl1_store_1_no_tenants <- 50 parameter:true category:"Level 1"; // current issue is it doesnt create agents specific to each store initialised
 
-	int lvl1_store_2_no_tenants <- 25 parameter:true category:"Level 1";
+	int lvl1_store_2_no_tenants <- 50 parameter:true category:"Level 1";
 	
-	int lvl1_store_3_no_tenants <- 25 parameter:true category:"Level 1";
+	int lvl1_store_3_no_tenants <- 50 parameter:true category:"Level 1";
 
-	int lvl1_store_4_no_tenants <- 25 parameter:true category:"Level 1";
+	int lvl1_store_4_no_tenants <- 50 parameter:true category:"Level 1";
 
-	int lvl1_store_5_no_tenants <- 25 parameter:true category:"Level 1";
+	int lvl1_store_5_no_tenants <- 50 parameter:true category:"Level 1";
 
-	int lvl1_store_6_no_tenants <- 25 parameter:true category:"Level 1";
+	int lvl1_store_6_no_tenants <- 50 parameter:true category:"Level 1";
 
-	int lvl1_store_7_no_tenants <- 25 parameter:true category:"Level 1";
+	int lvl1_store_7_no_tenants <- 50 parameter:true category:"Level 1";
 	
-	int lvl1_store_8_no_tenants <- 25 parameter:true category:"Level 1";
+	int lvl1_store_8_no_tenants <- 50 parameter:true category:"Level 1";
 	
 	list no_of_tenants_per_store_lvl1 <- [
 		lvl1_store_0_no_tenants,
@@ -142,31 +142,31 @@ global {
 
 	// For 13 stores on level 2:
 	
-	int lvl2_store_9_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_9_no_tenants <- 50 parameter:true category:"Level 2";
 
-	int lvl2_store_10_no_tenants <- 25 parameter:true category:"Level 2"; // current issue is it doesnt create agents specific to each store initialised
+	int lvl2_store_10_no_tenants <- 50 parameter:true category:"Level 2"; // current issue is it doesnt create agents specific to each store initialised
 
-	int lvl2_store_11_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_11_no_tenants <- 50 parameter:true category:"Level 2";
 	
-	int lvl2_store_12_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_12_no_tenants <- 50 parameter:true category:"Level 2";
 	
-	int lvl2_store_13_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_13_no_tenants <- 50 parameter:true category:"Level 2";
 
-	int lvl2_store_14_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_14_no_tenants <- 50 parameter:true category:"Level 2";
 
-	int lvl2_store_15_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_15_no_tenants <- 50 parameter:true category:"Level 2";
 
-	int lvl2_store_16_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_16_no_tenants <- 50 parameter:true category:"Level 2";
 	
-	int lvl2_store_17_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_17_no_tenants <- 50 parameter:true category:"Level 2";
 	
-	int lvl2_store_18_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_18_no_tenants <- 50 parameter:true category:"Level 2";
 	
-	int lvl2_store_19_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_19_no_tenants <- 50 parameter:true category:"Level 2";
 	
-	int lvl2_store_20_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_20_no_tenants <- 50 parameter:true category:"Level 2";
 	
-	int lvl2_store_21_no_tenants <- 25 parameter:true category:"Level 2";
+	int lvl2_store_21_no_tenants <- 50 parameter:true category:"Level 2";
 	
 	
 	
@@ -230,19 +230,19 @@ global {
 
 	// For 7 stores on level 2:
 	
-	int lvl3_store_22_no_tenants <- 25 parameter:true category:"Level 3";
+	int lvl3_store_22_no_tenants <- 50 parameter:true category:"Level 3";
 
-	int lvl3_store_23_no_tenants <- 25 parameter:true category:"Level 3"; // current issue is it doesnt create agents specific to each store initialised
+	int lvl3_store_23_no_tenants <- 50 parameter:true category:"Level 3"; // current issue is it doesnt create agents specific to each store initialised
 
-	int lvl3_store_24_no_tenants <- 25 parameter:true category:"Level 3";
+	int lvl3_store_24_no_tenants <- 50 parameter:true category:"Level 3";
 	
-	int lvl3_store_25_no_tenants <- 25 parameter:true category:"Level 3";
+	int lvl3_store_25_no_tenants <- 50 parameter:true category:"Level 3";
 	
-	int lvl3_store_26_no_tenants <- 25 parameter:true category:"Level 3";
+	int lvl3_store_26_no_tenants <- 50 parameter:true category:"Level 3";
 
-	int lvl3_store_27_no_tenants <- 25 parameter:true category:"Level 3";
+	int lvl3_store_27_no_tenants <- 50 parameter:true category:"Level 3";
 
-	int lvl3_store_28_no_tenants <- 25 parameter:true category:"Level 3";
+	int lvl3_store_28_no_tenants <- 50 parameter:true category:"Level 3";
 
 
 	
@@ -295,13 +295,13 @@ global {
 
 	// For 4 stores on level 2:
 	
-	int lvl2_store_29_no_tenants <- 25 parameter:true category:"Level 4";
+	int lvl2_store_29_no_tenants <- 50 parameter:true category:"Level 4";
 
-	int lvl2_store_30_no_tenants <- 25 parameter:true category:"Level 4"; // current issue is it doesnt create agents specific to each store initialised
+	int lvl2_store_30_no_tenants <- 50 parameter:true category:"Level 4"; // current issue is it doesnt create agents specific to each store initialised
 
-	int lvl2_store_31_no_tenants <- 25 parameter:true category:"Level 4";
+	int lvl2_store_31_no_tenants <- 50 parameter:true category:"Level 4";
 	
-	int lvl2_store_32_no_tenants <- 25 parameter:true category:"Level 4";
+	int lvl2_store_32_no_tenants <- 50 parameter:true category:"Level 4";
 	
 	
 	list no_of_tenants_per_store_lvl4 <- [
@@ -732,7 +732,7 @@ global {
  		
  		
  		create stairwell{
- 			stairwell_stairs <- [0, 6, 11, 15];
+ 			stairwell_stairs <- [0, 6, 11, 14];
  		}
  		
  		create stairwell{
@@ -869,21 +869,25 @@ species stairs {
 	aspect floor_1 {
 		if floor_no = 1{
 			draw circle(2) color: #black depth: 10;
+			draw ("stair ind------- " + self.index) color:#red size:5 at:{location.x-3,location.y+5,location.z} font:agent_font perspective:true;
 		}
 	}
 	aspect floor_2 {
 		if floor_no = 2{
 			draw circle(2) color: #black depth: 10;
+			draw ("stair ind------- " + self.index) color:#red size:5 at:{location.x-3,location.y+5,location.z} font:agent_font perspective:true;
 		}
 	}
 	aspect floor_3 {
 		if floor_no = 3{
 			draw circle(2) color: #black depth: 10;
+			draw ("stair ind------- " + self.index) color:#red size:5 at:{location.x-3,location.y+5,location.z} font:agent_font perspective:true;
 		}
 	}
 	aspect floor_4 {
 		if floor_no = 4{
 			draw circle(2) color: #black depth: 10;
+			draw ("stair ind------- " + self.index) color:#red size:5 at:{location.x-3,location.y+5,location.z} font:agent_font perspective:true;
 		}
 	}
 }
@@ -1493,10 +1497,20 @@ species cleaner skills:[pedestrian]{
 		
 		current_floor_stairs_list <- current_floor_stairs_list sort_by (each distance_to self); // sort from shortest distance to self
 		// set current_target to nearest stairwell when returning to rest (all stairs go to lvl 1)
-		current_target <- (current_floor_stairs_list at 0).location;
+		
+		//skip the stairs at top floor
+		if (current_floor_stairs_list at 0).index = 16 and bin_to_clean = nil{
+			// go to the next nearest stairs
+			current_target <- (current_floor_stairs_list at 1).location;
+		}
+		else if (bin_to_clean = nil){
+			current_target <- (current_floor_stairs_list at 0).location;
+				write "MY CURRENT STAIRS TARGET IS: " + current_floor_stairs_list at 0;
+			
+		}
 		
 		// if finding nearest stairwell during cleaning
-		if bin_to_clean != nil{
+		else if bin_to_clean != nil{
 			current_target <- nil;
 			
 			// for each stairs_object (closest first)  on the cleaner's current floor
@@ -1514,6 +1528,7 @@ species cleaner skills:[pedestrian]{
 				}
 				
 				if self.current_target != nil{
+					write "Current target (w/ bin_to_clean): "+ stairs_object;
 					break; // breaks out of the stairs in current_floor_stairs_list loop
 				}
 				
@@ -1524,11 +1539,15 @@ species cleaner skills:[pedestrian]{
 			
 		}
 		
+		write "MY CURRENT TARGET LOC IS: " + current_target;
+		
 		
 	}
  
 
 	reflex add_bins_to_activated_list when: check = true{
+
+		
 		//write "add bins to activated";
 
 		ask agents of_species bin{
@@ -1580,7 +1599,7 @@ species cleaner skills:[pedestrian]{
 	 			//cleaner reached stairs, teleport to floor 1.
 	 			else{
 	 				// teleport to floor 1
-	 				self.location <- {location.x, location.y, 0};
+	 				self.location <- {current_target.location.x, current_target.location.y, 0};
 	 				self.current_floor_no <- 1;
 	 				self.current_target <- nil;
 	 			}
@@ -1658,12 +1677,12 @@ species cleaner skills:[pedestrian]{
   
 	            
 	reflex clean_bins when: is_cleaning = true and return_to_rest = false and check = false{
-		//
+		
+
         
-        if (length(bins_to_clean_order) > 0 and location distance_to (bins_to_clean_order at 0) > 0.01){
+        if (length(bins_to_clean_order) > 0 and location distance_to (bins_to_clean_order at 0) > 1){
         	bin_to_clean <- bins_to_clean_order at 0;
 //			write "Cleaning " + bin_to_clean + "now!";    
-
 
 			// if bin_to_clean is not on the same floor as the cleaner,
 			if bin_to_clean.floor_no != self.current_floor_no{
@@ -1675,9 +1694,46 @@ species cleaner skills:[pedestrian]{
 	 			
 	 			// if current_target (stairs) is true:
 	 			
-	 			if current_target != nil  and self distance_to current_target > 0.1{
+	 			
+	 			
+ 				// if stairs is stairs 2
+	 			if current_target=stairs(1).location{
 	 				
-	 				write "moving to stairs of index: " + current_target;
+	 				
+	 				if (current_target != nil  and self distance_to current_target > 20) {
+		 				
+		 				write "moving to stairs of index for STAIRS 2: " + current_target;
+		 				write (self distance_to current_target);
+		 				
+		 				do goto (target:current_target, on:pedestrian_network_list at (self.current_floor_no-1));
+	//	 				do goto (target:current_target);
+		 				
+						total_time_travelled <- total_time_travelled + 1;
+		 				
+		 			}
+		 			
+	//	 			else {
+		 			else if (current_target != nil  and self distance_to current_target <= 20){
+		 				
+		 				write "moving on the stairs!";
+	
+		 				// teleport to floor of current_bin
+		 				self.location <- {current_target.location.x, current_target.location.y, ((bin_to_clean.floor_no-1)*floor_loc_multiplier)};
+		 				self.current_floor_no <- bin_to_clean.floor_no;
+		 				// reset stairs target
+		 				self.current_target <- nil;
+		 			}
+	 				
+	 				
+	 			}
+	 			
+
+	 			
+	 			// for any other stairs
+	 			else if (current_target != nil  and self distance_to current_target > 0.1 and current_target != stairs(1).location) {
+	 				
+	 				write "moving to stairs of index WITHIN CLEAN: " + current_target;
+	 				write (self distance_to current_target);
 	 				
 	 				do goto (target:current_target, on:pedestrian_network_list at (self.current_floor_no-1));
 //	 				do goto (target:current_target);
@@ -1686,8 +1742,8 @@ species cleaner skills:[pedestrian]{
 	 				
 	 			}
 	 			
-//	 			else {
-	 			else if current_target != nil  and self distance_to current_target <= 0.1{
+	 			else {
+//	 			else if (current_target != nil  and self distance_to current_target <= 0.1 and current_target != stairs(1).location){
 	 				
 	 				write "moving on the stairs!";
 
@@ -1703,9 +1759,12 @@ species cleaner skills:[pedestrian]{
 			
 			}
 			
-			// once cleaner is on the same floor as the target_bin, go to the bin
-        	do goto (target:bin_to_clean, on:pedestrian_network_list at (self.current_floor_no-1));
-        	total_time_travelled <- total_time_travelled + 1;
+			if self.current_floor_no = bin_to_clean.floor_no{
+				// once cleaner is on the same floor as the target_bin, go to the bin
+	        	do goto (target:bin_to_clean, on:pedestrian_network_list at (self.current_floor_no-1));
+	        	total_time_travelled <- total_time_travelled + 1;
+        	
+        	}
         }
         
 
@@ -1751,43 +1810,62 @@ species cleaner skills:[pedestrian]{
 	 				do find_nearest_available_staircase;
 	 			}
 	 			
+	 			
+	 			
 	 			// if current_target (stairs) is true:
 	 			
 	 			if current_target != nil  and self distance_to current_target > 0.1{
 	 				
+	 				
+					write "walking to my stairs to go home";
+					
+	 				
+	 				
 	 				do goto (target:current_target, on:pedestrian_network_list at (self.current_floor_no-1));
 					total_time_travelled <- total_time_travelled + 1;
+					
+	 				write "after walking, distance btw me and stairs is: " + self distance_to current_target;
+					
 	 				
 	 			}
 	 			else if current_target != nil  and self distance_to current_target <= 0.1{
+	 				
+	 				write "reached my stairs to go home time to teleport!";
 	 				// teleport to floor of central_bin
-	 				self.location <- {location.x, location.y, 0};
+	 				self.location <- {current_target.location.x, current_target.location.y, 0};
 	 				self.current_floor_no <- 1;
 	 				// reset stairs target
 	 				self.current_target <- nil;
+	 				
 	 			}
 
 			
 			}
 			
+			else{ // if current floor is 1
 			
-			// once cleaner is on the same floor at the central bin,
-        	if location distance_to central_bin_location > 0.1{
-					do goto (target:central_bin_location, on:pedestrian_network_list at (self.current_floor_no-1));
-					total_time_travelled <- total_time_travelled + 1;
-			}
-			
-			// to let first reflex function run
-			else if location distance_to central_bin_location <= 0.1{
-				write "Dumping trash into DUMSPTER";
-				trash_on_hand <- 0.0;
-        		is_cleaning <- false;
-        		check<- true;
-        		
-//        		return_to_rest <- true;
+				if self.central_bin_location = nil{
+					do get_central_bin_location;
+				}
+				
+				// once cleaner is on the same floor at the central bin,
+	        	if self.location distance_to central_bin_location > 1{
+	        			write "walking to central";
+						do goto (target:central_bin_location, on:pedestrian_network_list at (self.current_floor_no-1));
+						total_time_travelled <- total_time_travelled + 1;
+				}
+				
+				// to let first reflex function run
+				else if location distance_to central_bin_location <= 1{
+					write "Dumping trash into DUMSTER";
+					trash_on_hand <- 0.0;
+	        		is_cleaning <- false;
+	        		check<- true;
+	        		
+	        		return_to_rest <- true;
+	        	}
+	        	else { write "BROKEN";}
         	}
-        	else { write "BROKEN";}
-        	
         }
 	}       
 	
@@ -1836,7 +1914,141 @@ experiment pedestrian_navigation type: gui {
 //    	monitor "TOTAL COMPLAINTS" value: total_complaints refresh: every(step);
 //    	monitor "ACUMULATED TIME OF BINS OVERFLOWED (MINS): " value: total_time_bin_overflowed/60 refresh: every(step);
 
-        display vidacity_lvl_1 type: opengl {
+
+//display vidacity_lvl_1 type: opengl {
+//        	
+//        	// Legend 
+//             overlay position: { 10, 490 } size: { 1200 #px, 220 #px } background: # gray transparency: 0.2 border: #black rounded: true
+//            {
+//                float y <- 30#px;
+//                
+//                    draw "Legend" at: {20#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    draw "Failure Metrics" at: {285#px, y + 3#px } color: # white font: font("Helvetica", 28, #bold  #italic);
+//                    y <- y + 30#px;
+//					
+//					// tenant
+//                    draw triangle(25#px) at: { 30#px, y } color: #red border: #white;
+//                    draw "Tenant" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("TOTAL COMPLAINTS: " + total_complaints)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Central bin
+//                    draw square(25#px) at: { 30#px, y } color: #cadetblue border: #white;
+//                    draw "Central Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                	draw ("ACCUMULATED TIME OF BINS OVERFLOWED (MINS): " + total_time_bin_overflowed/60)  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Floor's bin
+//                    draw square(25#px) at: { 30#px, y } color: #green border: #white;
+//                    draw "Floor's Trash Bin" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    ask cleaner{                	
+//                    	draw ("CLEANER DISTANCE TRAVELLED: " + (self.total_time_travelled/3600*self.speed*1000) + "m")  at: { 285#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    }
+//                    
+//                    y <- y + 40#px;
+//                    
+//                    // Cleaner
+//                    draw circle(12.5#px) at: { 30#px, y } color: #gray border: #white;
+//                    draw "Cleaner" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
+//                    y <- y + 40#px;
+//
+//            }
+//            
+//
+//            // floor 1
+//        	
+//    		species pedestrian_path aspect:floor_1 transparency: 0.5;
+//            	
+//            species bin aspect: floor_1;
+//            
+//            species cleaner aspect: floor_1;
+//            species cleaner aspect: floor_2;
+//            species cleaner aspect: floor_3;
+//            species cleaner aspect: floor_4;
+//    
+//            species central_bin aspect: default;
+//            
+//
+//            species obstacle aspect: floor_1 transparency: 0.80;
+//            
+//            species store aspect: floor_1 {
+//				species people aspect: floor_1;
+//	
+//			  }
+//            
+//            species stairs aspect: floor_1;
+//            species store_floor aspect: floor_1 transparency: 0.8;
+//            species vida_lvl_layout_1 transparency: 0.6;
+//            
+//            
+//            
+//            // floor 2
+//            
+//            species pedestrian_path aspect:floor_2 transparency: 0.5;
+//            	
+//            species bin aspect: floor_2;
+//           
+//            
+//
+//            species obstacle aspect: floor_2 transparency: 0.80;
+//            
+//            species store aspect: floor_2 {
+//				species people aspect: floor_2;
+//	
+//			  }
+//            
+//            species stairs aspect: floor_2;
+//            
+//            species store_floor aspect: floor_2 transparency: 0.8;
+//            species vida_lvl_layout_2 transparency: 0.6;
+//            
+//            
+//            //floor 3
+//            
+//            species pedestrian_path aspect:floor_3 transparency: 0.5;
+//            	
+//            species bin aspect: floor_3;
+//           
+//            
+//
+//            species obstacle aspect: floor_3 transparency: 0.80;
+//            
+//            species store aspect: floor_3 {
+//				species people aspect: floor_3;
+//	
+//			  }
+//            
+//            species stairs aspect: floor_3;
+//            
+//            species store_floor aspect: floor_3 transparency: 0.8;
+//            species vida_lvl_layout_3 transparency: 0.6;
+//            
+//            
+//            //floor 4
+//            
+//            species pedestrian_path aspect:floor_4 transparency: 0.5;
+//            	
+//            species bin aspect: floor_4;
+//           
+//            
+//
+//            species obstacle aspect: floor_4 transparency: 0.80;
+//            
+//            species store aspect: floor_4 {
+//				species people aspect: floor_4;
+//	
+//			}
+//            
+//            species stairs aspect: floor_4;
+//            
+//            species store_floor aspect: floor_4 transparency: 0.8;
+//            species vida_lvl_layout_4 transparency: 0.6;
+//            
+//            }
+
+        display vidacity_lvl_1_2 type: opengl {
         	
         	// Legend 
              overlay position: { 10, 490 } size: { 1200 #px, 220 #px } background: # gray transparency: 0.2 border: #black rounded: true
@@ -1885,6 +2097,10 @@ experiment pedestrian_navigation type: gui {
             species bin aspect: floor_1;
             
             species cleaner aspect: floor_1;
+            species cleaner aspect: floor_2;
+            species cleaner aspect: floor_3;
+            species cleaner aspect: floor_4;
+    
             species central_bin aspect: default;
             
 
@@ -1963,8 +2179,70 @@ experiment pedestrian_navigation type: gui {
             species store_floor aspect: floor_4 transparency: 0.8;
             species vida_lvl_layout_4 transparency: 0.6;
             
+            }
             
             
+            display vidacity_lvl_3_4 type: opengl {
+        	
+            
+
+
+            
+            species cleaner aspect: floor_1;
+            species cleaner aspect: floor_2;
+            species cleaner aspect: floor_3;
+            species cleaner aspect: floor_4;
+    
+
+            
+       
+            //floor 3
+            
+            species pedestrian_path aspect:floor_3 transparency: 0.5;
+            	
+            species bin aspect: floor_3;
+           
+            
+
+            species obstacle aspect: floor_3 transparency: 0.80;
+            
+            species store aspect: floor_3 {
+				species people aspect: floor_3;
+	
+			  }
+            
+            species stairs aspect: floor_3;
+            
+            species store_floor aspect: floor_3 transparency: 0.8;
+            species vida_lvl_layout_3 transparency: 0.6;
+            
+            
+            //floor 4
+            
+            species pedestrian_path aspect:floor_4 transparency: 0.5;
+            	
+            species bin aspect: floor_4;
+           
+            
+
+            species obstacle aspect: floor_4 transparency: 0.80;
+            
+            species store aspect: floor_4 {
+				species people aspect: floor_4;
+	
+			}
+            
+            species stairs aspect: floor_4;
+            
+            species store_floor aspect: floor_4 transparency: 0.8;
+            species vida_lvl_layout_4 transparency: 0.6;
+            
+            
+            
+            
+            
+            
+       
             
             
             
