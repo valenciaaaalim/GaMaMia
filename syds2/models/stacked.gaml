@@ -1949,7 +1949,7 @@ display vidacity_lvl_1 type: opengl {
                     y <- y + 40#px;
                     
                     // Stairs
-                    draw circle(12.5#px) at: { 30#px, y } color: #black border: #white;
+                    draw rectangle(12.5#px,30#px) at: { 30#px, y } color: #black border: #white;
                     draw "Stairs" at: { 60#px, y + 7#px } color: # white font: font("Helvetica", 25, #bold);
                     y <- y + 40#px;
 
