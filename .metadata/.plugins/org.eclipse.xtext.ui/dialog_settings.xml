@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="xtext.quickoutline">
+		<item key="org.eclipse.xtext.ui.editor.outline.quickoutline.QuickOutlinePopupDIALOG_X_ORIGIN" value="860"/>
+		<item key="org.eclipse.xtext.ui.editor.outline.quickoutline.QuickOutlinePopupDIALOG_Y_ORIGIN" value="452"/>
+		<item key="org.eclipse.xtext.ui.editor.outline.quickoutline.QuickOutlinePopupDIALOG_USE_PERSISTED_SIZE" value="false"/>
+		<item key="org.eclipse.xtext.ui.editor.outline.quickoutline.QuickOutlinePopupDIALOG_USE_PERSISTED_LOCATION" value="true"/>
+		<item key="msi.gama.lang.gaml.ui.editor.toolbar.GamlQuickOutlinePopupDIALOG_X_ORIGIN" value="363"/>
+		<item key="msi.gama.lang.gaml.ui.editor.toolbar.GamlQuickOutlinePopupDIALOG_Y_ORIGIN" value="81"/>
+		<item key="msi.gama.lang.gaml.ui.editor.toolbar.GamlQuickOutlinePopupDIALOG_USE_PERSISTED_SIZE" value="false"/>
+		<item key="msi.gama.lang.gaml.ui.editor.toolbar.GamlQuickOutlinePopupDIALOG_USE_PERSISTED_LOCATION" value="true"/>
+	</section>
+</section>
